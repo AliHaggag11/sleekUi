@@ -11,7 +11,6 @@ export function Hero() {
   const descriptionOpacity = useTransform(scrollY, [100, 200], [1, 0])
   const ctaOpacity = useTransform(scrollY, [150, 250], [1, 0])
   const socialOpacity = useTransform(scrollY, [200, 300], [1, 0])
-  const gridOpacity = useTransform(scrollY, [250, 350], [1, 0])
   
   // Subtle scale effect for each section
   const badgeScale = useTransform(scrollY, [0, 100], [1, 0.95])
@@ -19,7 +18,6 @@ export function Hero() {
   const descriptionScale = useTransform(scrollY, [100, 200], [1, 0.95])
   const ctaScale = useTransform(scrollY, [150, 250], [1, 0.95])
   const socialScale = useTransform(scrollY, [200, 300], [1, 0.95])
-  const gridScale = useTransform(scrollY, [250, 350], [1, 0.95])
 
   return (
     <div className="relative overflow-hidden bg-background min-h-screen flex flex-col items-center justify-center">

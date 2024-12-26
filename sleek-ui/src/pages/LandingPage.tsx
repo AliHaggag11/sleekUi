@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { Banner } from "@/components/ui/banner"
-import { ArrowRight, Code2, Layers, Sparkles, Zap } from "lucide-react"
+import { ArrowRight, Code2, Layers, Sparkles, Zap, ExternalLink } from "lucide-react"
 import { Nav } from "@/components/ui/nav"
 
 export function LandingPage() {
@@ -27,6 +27,38 @@ export function LandingPage() {
           <Button size="lg" variant="outline" className="gap-2">
             View on GitHub <Code2 className="w-4 h-4" />
           </Button>
+        </div>
+      </section>
+
+      {/* Showcase Section */}
+      <section className="py-24">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-4">Trusted by Developers</h2>
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+              Join thousands of developers who are building amazing products with our components
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <ShowcaseCard
+              title="DesignFlow"
+              description="Design collaboration platform"
+              image="/showcase/designflow.webp"
+              link="https://designflow.example.com"
+            />
+            <ShowcaseCard
+              title="TaskMaster Pro"
+              description="Project management solution"
+              image="/showcase/taskmaster.webp"
+              link="https://taskmaster.example.com"
+            />
+            <ShowcaseCard
+              title="Analytics Hub"
+              description="Data visualization dashboard"
+              image="/showcase/analytics.webp"
+              link="https://analytics.example.com"
+            />
+          </div>
         </div>
       </section>
 
@@ -74,5 +106,41 @@ function FeatureCard({
       <h3 className="text-xl font-semibold mb-2">{title}</h3>
       <p className="text-muted-foreground">{description}</p>
     </div>
+  )
+}
+
+function ShowcaseCard({
+  title,
+  description,
+  image,
+  link,
+}: {
+  title: string
+  description: string
+  image: string
+  link: string
+}) {
+  return (
+    <a
+      href={link}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group block rounded-lg overflow-hidden border bg-background transition-all hover:shadow-lg"
+    >
+      <div className="aspect-video relative overflow-hidden">
+        <img
+          src={image}
+          alt={title}
+          className="object-cover w-full h-full transition-transform group-hover:scale-105"
+        />
+      </div>
+      <div className="p-6">
+        <div className="flex items-center justify-between mb-2">
+          <h3 className="text-xl font-semibold">{title}</h3>
+          <ExternalLink className="w-4 h-4 text-muted-foreground" />
+        </div>
+        <p className="text-muted-foreground">{description}</p>
+      </div>
+    </a>
   )
 } 
