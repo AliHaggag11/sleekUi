@@ -29,8 +29,8 @@ export function CommandMenu({ open, onOpenChange }: CommandMenuProps) {
           className="fixed inset-0 bg-background/80 backdrop-blur-sm"
           onClick={() => onOpenChange(false)}
         />
-        <Dialog.Content className="fixed inset-0 z-50 flex items-start justify-center pt-[20vh]">
-          <div className="relative bg-background w-full max-w-[750px] rounded-xl border shadow-lg overflow-hidden">
+        <Dialog.Content className="fixed inset-0 z-50 flex items-start justify-center p-4 sm:pt-[20vh]">
+          <div className="relative w-full max-w-[750px] rounded-xl border shadow-lg overflow-hidden bg-background">
             <Dialog.Title className="sr-only">
               Search Documentation
             </Dialog.Title>
@@ -44,7 +44,7 @@ export function CommandMenu({ open, onOpenChange }: CommandMenuProps) {
                 <Command.Input 
                   autoFocus
                   placeholder="Type a command or search..."
-                  className="flex h-12 w-full rounded-md bg-transparent py-3 px-2 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50"
+                  className="flex h-12 w-full rounded-md bg-transparent py-3 px-2 text-base sm:text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50 [&::-webkit-search-cancel-button]:hidden"
                 />
                 <Dialog.Close asChild>
                   <Button
@@ -59,7 +59,7 @@ export function CommandMenu({ open, onOpenChange }: CommandMenuProps) {
               </div>
 
               <Command.List 
-                className="max-h-[300px] overflow-y-auto p-2"
+                className="max-h-[calc(100vh-8rem)] sm:max-h-[300px] overflow-y-auto p-2"
               >
                 <Command.Empty className="py-6 text-center text-sm text-muted-foreground">
                   No results found.
