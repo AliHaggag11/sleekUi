@@ -3,6 +3,7 @@ import { Nav } from "./components/ui/nav"
 import { Banner } from "./components/ui/banner"
 import { Hero } from "./components/ui/hero"
 import { Showcase } from "./components/ui/showcase"
+import { Footer } from "./components/ui/footer"
 
 function App() {
   return (
@@ -12,7 +13,7 @@ function App() {
         <Nav />
         <Hero />
         <Showcase />
-        {/* Other components */}
+        <Footer />
       </div>
     </ThemeProvider>
   )
