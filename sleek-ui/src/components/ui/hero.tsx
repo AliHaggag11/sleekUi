@@ -46,18 +46,21 @@ export function Hero() {
         {/* Update Badge */}
         <motion.div
           style={{ opacity: badgeOpacity, scale: badgeScale }}
-          className="flex max-w-fit items-center justify-center space-x-2 overflow-hidden rounded-full border bg-background/30 px-7 py-2 shadow-md backdrop-blur transition-all hover:bg-background/50"
+          className="flex max-w-fit items-center justify-center space-x-2 overflow-hidden rounded-full border bg-background/30 px-4 sm:px-7 py-2 shadow-md backdrop-blur transition-all hover:bg-background/50"
         >
-          <span className="text-sm font-semibold">Update</span>
-          <div className="mx-2 h-4 w-[1px] bg-gradient-to-b from-border/0 via-border to-border/0" />
+          <span className="hidden xs:inline text-sm font-semibold">Update</span>
+          <div className="hidden xs:block mx-2 h-4 w-[1px] bg-gradient-to-b from-border/0 via-border to-border/0" />
           <div className="flex items-center gap-1.5">
-            <div className="relative">
+            <div className="relative shrink-0">
               <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full blur-sm opacity-50 group-hover:opacity-75 animate-pulse" />
-              <Sparkles className="relative h-4 w-4 text-primary" />
+              <Sparkles className="relative h-3.5 w-3.5 sm:h-4 sm:w-4 text-primary" />
             </div>
-            <span className="text-sm">Introducing BG Mesh Gradient</span>
+            <span className="text-xs sm:text-sm whitespace-nowrap">
+              <span className="hidden sm:inline">Introducing </span>
+              BG Mesh Gradient
+            </span>
           </div>
-          <ArrowRight className="h-4 w-4 text-muted-foreground" />
+          <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-muted-foreground shrink-0" />
         </motion.div>
 
         {/* Main Content */}
@@ -144,23 +147,47 @@ export function Hero() {
 
         {/* Preview Grid */}
         <motion.div 
-          style={{ opacity: gridOpacity, scale: gridScale }}
           className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
         >
           {['Accordion', 'Globe', 'Mouse Trail'].map((title, i) => (
             <motion.div
               key={i}
               whileHover={{ y: -8, scale: 1.02 }}
-              className="group relative aspect-video overflow-hidden rounded-xl border bg-gradient-to-br from-background/50 to-background shadow-xl"
+              className="group relative aspect-video overflow-hidden rounded-xl border bg-gradient-to-br from-background/50 to-background shadow-xl backdrop-blur-sm"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 via-purple-500/10 to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+              {/* Gradient Background */}
+              <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 via-purple-500/5 to-pink-500/5" />
+              
+              {/* Hover Gradient */}
+              <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 via-purple-500/10 to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              
+              {/* Content */}
               <div className="relative h-full w-full p-6 flex flex-col justify-between">
-                <h3 className="font-semibold text-lg">{title}</h3>
-                <div className="flex items-center gap-2 text-sm text-muted-foreground group-hover:text-primary transition-colors">
-                  <span>View Component</span>
-                  <ExternalLink className="h-4 w-4" />
+                <div className="space-y-2">
+                  <h3 className="font-semibold text-lg">{title}</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Interactive {title.toLowerCase()} component with smooth animations
+                  </p>
+                </div>
+                
+                {/* Bottom Section */}
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground group-hover:text-primary transition-colors">
+                    <span>View Component</span>
+                    <ExternalLink className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                  </div>
+                  
+                  {/* Tags */}
+                  <div className="flex gap-2">
+                    <span className="px-2 py-1 rounded-md bg-primary/10 text-xs font-medium">
+                      New
+                    </span>
+                  </div>
                 </div>
               </div>
+
+              {/* Decorative Corner */}
+              <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-indigo-500/20 via-purple-500/20 to-pink-500/20 blur-xl" />
             </motion.div>
           ))}
         </motion.div>

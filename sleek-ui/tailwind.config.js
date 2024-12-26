@@ -66,6 +66,9 @@ export default {
   		animation: {
   			blob: 'blob 7s infinite',
   		},
+  		screens: {
+  			'xs': '400px',
+  		},
   	}
   },
   plugins: [require("tailwindcss-animate")],
