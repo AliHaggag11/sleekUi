@@ -31,10 +31,12 @@ export function LandingPage() {
       </section>
 
       {/* Showcase Section */}
-      <section className="py-24">
+      <section className="py-24 bg-secondary/10">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Trusted by Developers</h2>
+            <h2 className="text-3xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/60">
+              Trusted by Developers
+            </h2>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
               Join thousands of developers who are building amazing products with our components
             </p>
@@ -43,19 +45,19 @@ export function LandingPage() {
             <ShowcaseCard
               title="DesignFlow"
               description="Design collaboration platform"
-              image="/showcase/designflow.webp"
+              image="https://placehold.co/600x400/2a2a2a/ffffff/png"
               link="https://designflow.example.com"
             />
             <ShowcaseCard
               title="TaskMaster Pro"
               description="Project management solution"
-              image="/showcase/taskmaster.webp"
+              image="https://placehold.co/600x400/2a2a2a/ffffff/png"
               link="https://taskmaster.example.com"
             />
             <ShowcaseCard
               title="Analytics Hub"
               description="Data visualization dashboard"
-              image="/showcase/analytics.webp"
+              image="https://placehold.co/600x400/2a2a2a/ffffff/png"
               link="https://analytics.example.com"
             />
           </div>
