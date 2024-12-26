@@ -42,7 +42,7 @@ export function Nav() {
         <div className="flex items-center">
           {/* Logo */}
           <motion.div 
-            className="flex items-center"
+            className="flex items-center pl-2"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
@@ -60,7 +60,7 @@ export function Nav() {
           </motion.div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center ml-8 space-x-6">
+          <nav className="hidden lg:flex items-center ml-8 space-x-8">
             <NavLink href="/docs">Documentation</NavLink>
             <NavLink href="/components">Components</NavLink>
             <NavLink href="/templates">
@@ -74,7 +74,7 @@ export function Nav() {
         </div>
 
         {/* Right Section: Search, Theme, GitHub */}
-        <div className="flex items-center gap-2 sm:gap-3">
+        <div className="flex items-center gap-4 sm:gap-6">
           {/* Search - Desktop */}
           <motion.div 
             className="hidden md:block"
