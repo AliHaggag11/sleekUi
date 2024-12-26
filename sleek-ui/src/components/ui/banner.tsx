@@ -14,10 +14,10 @@ export function Banner() {
           exit={{ height: 0, opacity: 0 }}
           className="w-full bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 text-white relative overflow-hidden"
         >
-          <div className="max-w-screen-2xl mx-auto px-4">
+          <div className="px-4">
             <motion.a
               href="#pro"
-              className="group relative flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:text-white/90"
+              className="group relative flex items-center justify-center gap-2 py-2.5 text-sm font-medium text-white transition-colors hover:text-white/90"
               whileHover={{ scale: 1.01 }}
               whileTap={{ scale: 0.99 }}
             >
