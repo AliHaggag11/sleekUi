@@ -1,3 +1,5 @@
+const { fontFamily } = require("tailwindcss/defaultTheme")
+
 /** @type {import('tailwindcss').Config} */
 export default {
     darkMode: ["class"],
@@ -68,6 +70,9 @@ export default {
   		},
   		screens: {
   			'xs': '400px',
+  		},
+  		fontFamily: {
+  			sans: ["Afacad Flux", ...fontFamily.sans],
   		},
   	}
   },

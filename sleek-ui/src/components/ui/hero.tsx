@@ -19,6 +19,15 @@ export function Hero() {
   const ctaScale = useTransform(scrollY, [150, 250], [1, 0.95])
   const socialScale = useTransform(scrollY, [200, 300], [1, 0.95])
 
+  // Array of avatar URLs using UI Faces API
+  const avatars = [
+    "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=80&h=80&fit=crop&crop=face",
+    "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=80&h=80&fit=crop&crop=face",
+    "https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=80&h=80&fit=crop&crop=face",
+    "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&h=80&fit=crop&crop=face",
+    "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&h=80&fit=crop&crop=face",
+  ]
+
   return (
     <div className="relative overflow-hidden bg-background min-h-screen flex flex-col items-center justify-center">
       {/* Animated Background Effects */}
@@ -119,21 +128,34 @@ export function Hero() {
             style={{ opacity: socialOpacity, scale: socialScale }}
             className="mt-12 flex items-center justify-center gap-8"
           >
-            <div className="flex -space-x-2">
-              {[...Array(5)].map((_, i) => (
-                <div
+            <div className="flex -space-x-4">
+              {avatars.map((avatar, i) => (
+                <motion.div
                   key={i}
-                  className="relative inline-block h-8 w-8 rounded-full border-2 border-background"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.1 + 0.5 }}
+                  className="relative inline-block h-10 w-10 rounded-full border-2 border-background ring-1 ring-background/50 overflow-hidden"
+                  style={{ zIndex: avatars.length - i }}
                 >
-                  <div className="absolute inset-0 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-full" />
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent rounded-full" />
-                </div>
+                  <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-purple-500/5" />
+                  <img
+                    src={avatar}
+                    alt={`User ${i + 1}`}
+                    className="h-full w-full object-cover transition-transform duration-300 hover:scale-110"
+                    loading="eager"
+                  />
+                </motion.div>
               ))}
             </div>
             <div className="flex items-center gap-2">
               <div className="flex gap-0.5">
                 {[...Array(5)].map((_, i) => (
-                  <Sparkles key={i} className="h-4 w-4 text-yellow-500 animate-pulse" />
+                  <Sparkles 
+                    key={i} 
+                    className="h-4 w-4 text-yellow-500 animate-pulse" 
+                    style={{ animationDelay: `${i * 200}ms` }}
+                  />
                 ))}
               </div>
               <span className="text-sm font-medium">

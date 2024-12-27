@@ -73,7 +73,7 @@ export function Footer() {
   return (
     <footer 
       ref={footerRef}
-      className="relative overflow-hidden border-t bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
+      className="relative overflow-hidden border-t bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 font-light"
     >
       {/* Background Effects */}
       <div className="pointer-events-none absolute inset-0">
@@ -114,20 +114,20 @@ export function Footer() {
             <div className="max-w-2xl mx-auto text-center space-y-4 relative">
               <motion.h2 
                 variants={itemVariants}
-                className="text-2xl md:text-3xl font-bold bg-gradient-to-br from-foreground to-foreground/70 bg-clip-text text-transparent"
+                className="text-2xl md:text-3xl font-medium bg-gradient-to-br from-foreground to-foreground/70 bg-clip-text text-transparent tracking-tight"
               >
                 Stay up to date
               </motion.h2>
               <motion.p 
                 variants={itemVariants}
-                className="text-muted-foreground"
+                className="text-muted-foreground font-light"
               >
                 Get notified about updates, new components, and resources.
               </motion.p>
               <motion.form 
                 variants={itemVariants}
                 onSubmit={handleSubmit}
-                className="flex flex-col sm:flex-row gap-2 max-w-md mx-auto mt-4"
+                className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto mt-6"
               >
                 <div className="relative flex-1">
                   <input
@@ -137,36 +137,37 @@ export function Footer() {
                     placeholder="Enter your email"
                     disabled={submitState === "success"}
                     className={`
-                      w-full px-4 py-2 rounded-lg bg-background/50 backdrop-blur-sm border 
+                      w-full h-12 px-4 rounded-lg
+                      bg-background/50 backdrop-blur-sm border
                       focus:outline-none focus:ring-2 focus:ring-primary/20
                       disabled:opacity-50 disabled:cursor-not-allowed
                       transition-all duration-200
-                      ${submitState === "success" ? "border-primary/50 bg-primary/5" : ""}
+                      ${submitState === "success" ? "border-primary/50 bg-primary/5 pr-12" : ""}
                     `}
                   />
                   {submitState === "success" && (
                     <motion.div
                       initial={{ scale: 0.5, opacity: 0 }}
                       animate={{ scale: 1, opacity: 1 }}
-                      className="absolute right-3 top-1/2 -translate-y-1/2"
+                      className="absolute right-4 top-0 h-full flex items-center justify-center"
                     >
-                      <div className="bg-primary/10 p-1 rounded-full">
-                        <Check className="w-4 h-4 text-primary" />
-                      </div>
+                      <Check className="w-5 h-5 text-primary" />
                     </motion.div>
                   )}
                 </div>
+
                 <Button 
                   type="submit"
                   disabled={!email || submitState !== "idle"}
-                  className="relative group min-w-[120px] overflow-hidden"
+                  className="relative h-12 px-6 group"
                 >
-                  <div className="relative z-10">
+                  <div className="relative z-10 flex items-center justify-center min-w-[100px]">
                     {submitState === "loading" ? (
                       <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
+                        className="flex items-center justify-center"
                       >
                         <Loader2 className="w-4 h-4 animate-spin" />
                       </motion.div>
@@ -174,9 +175,10 @@ export function Footer() {
                       <motion.div
                         initial={{ scale: 0.5, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
-                        className="text-primary-foreground"
+                        className="text-primary-foreground flex items-center gap-2"
                       >
-                        Subscribed!
+                        Subscribed
+                        <Check className="w-4 h-4" />
                       </motion.div>
                     ) : (
                       <>
@@ -188,15 +190,16 @@ export function Footer() {
                     )}
                   </div>
                   <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 opacity-0 group-hover:opacity-10 transition-opacity"
+                    className="absolute inset-0 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 opacity-0 group-hover:opacity-10 transition-opacity rounded-lg"
                   />
                 </Button>
               </motion.form>
+
               {submitState === "success" && (
                 <motion.p
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="text-sm text-primary"
+                  className="text-sm text-primary mt-3 text-center"
                 >
                   Thank you for subscribing! Check your email for confirmation.
                 </motion.p>
@@ -211,10 +214,10 @@ export function Footer() {
           >
             {/* Brand Section */}
             <motion.div variants={itemVariants} className="space-y-4">
-              <h2 className="text-2xl font-bold bg-gradient-to-br from-foreground to-foreground/70 bg-clip-text text-transparent">
+              <h2 className="text-2xl font-medium bg-gradient-to-br from-foreground to-foreground/70 bg-clip-text text-transparent tracking-tight">
                 Sleek UI
               </h2>
-              <p className="text-muted-foreground">
+              <p className="text-muted-foreground font-light">
                 Beautiful, modern components built with Radix UI and Tailwind CSS.
               </p>
               <div className="flex gap-3">
@@ -245,7 +248,7 @@ export function Footer() {
                 variants={itemVariants}
                 className="space-y-4"
               >
-                <h3 className="text-sm font-semibold">{section}</h3>
+                <h3 className="text-sm font-medium tracking-wide">{section}</h3>
                 <ul className="space-y-3">
                   {footerLinks[section.toLowerCase() as keyof typeof footerLinks]?.map(({ name, href }) => (
                     <li key={name}>
@@ -272,7 +275,7 @@ export function Footer() {
           {/* Bottom Section */}
           <motion.div
             variants={itemVariants}
-            className="mt-16 pt-8 border-t"
+            className="mt-16 pt-8 border-t font-light"
           >
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
               <motion.p 
@@ -285,8 +288,8 @@ export function Footer() {
                 variants={itemVariants}
                 className="text-sm text-muted-foreground"
               >
-                Built with{" "}
-                <span className="inline-block animate-pulse">💗</span>
+                Built
+              
                 {" "}by{" "}
                 <a
                   href="#"
