@@ -6,12 +6,21 @@ import { useState, memo } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Link, useLocation } from "react-router-dom"
 import { Logo } from "./logo"
+import { useDocsSidebar } from "../providers/docs-sidebar-provider"
 
 export const Nav = memo(function Nav() {
   const { theme, setTheme } = useTheme()
   const [open, setOpen] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const modifierKey = useModifierKey()
+  const location = useLocation()
+  const { isSidebarOpen, setIsSidebarOpen } = useDocsSidebar()
+  const isDocsPage = location.pathname.startsWith('/docs')
+
+  const resetMenus = () => {
+    setMobileMenuOpen(false)
+    setIsSidebarOpen(false)
+  }
 
   const navVariants = {
     hidden: { opacity: 0, y: -10 },
@@ -28,6 +37,14 @@ export const Nav = memo(function Nav() {
       height: "auto",
       opacity: 1,
       transition: { duration: 0.2 }
+    }
+  }
+
+  const handleMobileMenuClick = () => {
+    if (isDocsPage) {
+      setIsSidebarOpen(!isSidebarOpen)
+    } else {
+      setMobileMenuOpen(!mobileMenuOpen)
     }
   }
 
@@ -56,7 +73,10 @@ export const Nav = memo(function Nav() {
         <div className="container flex h-16 items-center justify-between px-4">
           {/* Left Section: Logo + Desktop Nav */}
           <div className="flex items-center">
-            <Logo className="flex items-center pl-2" />
+            <Logo 
+              className="flex items-center pl-2" 
+              onNavigate={resetMenus}
+            />
 
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center ml-8 space-x-8">
@@ -158,10 +178,10 @@ export const Nav = memo(function Nav() {
                 variant="ghost"
                 size="icon"
                 className="h-9 w-9"
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                onClick={handleMobileMenuClick}
               >
                 <AnimatePresence mode="wait">
-                  {mobileMenuOpen ? (
+                  {((!isDocsPage && mobileMenuOpen) || (isDocsPage && isSidebarOpen)) ? (
                     <motion.div
                       key="close"
                       initial={{ rotate: -90, opacity: 0 }}
@@ -189,9 +209,9 @@ export const Nav = memo(function Nav() {
           </div>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile Menu - Only show when not on docs page */}
         <AnimatePresence>
-          {mobileMenuOpen && (
+          {mobileMenuOpen && !isDocsPage && (
             <motion.div
               variants={mobileMenuVariants}
               initial="closed"

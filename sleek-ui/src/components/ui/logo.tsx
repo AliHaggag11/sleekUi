@@ -4,16 +4,21 @@ import { motion } from "framer-motion"
 interface LogoProps {
   showBetaBadge?: boolean
   className?: string
+  onNavigate?: () => void
 }
 
-export function Logo({ showBetaBadge = true, className }: LogoProps) {
+export function Logo({ showBetaBadge = true, className, onNavigate }: LogoProps) {
   return (
     <motion.div 
       className={className}
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
     >
-      <Link to="/" className="flex items-center gap-2">
+      <Link 
+        to="/" 
+        className="flex items-center gap-2"
+        onClick={() => onNavigate?.()}
+      >
         <div className="h-7 w-7 rounded-lg bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center">
           <div className="h-3 w-3 rounded-sm bg-primary-foreground" />
         </div>

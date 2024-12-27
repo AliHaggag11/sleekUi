@@ -2,10 +2,11 @@ import { Link, Outlet, useLocation } from "react-router-dom"
 import * as ScrollArea from "@radix-ui/react-scroll-area"
 import { TableOfContents } from "../ui/table-of-contents"
 import { Breadcrumb } from "../ui/breadcrumb"
-import { Menu, X } from "lucide-react"
-import { useState } from "react"
+import { X } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "../ui/button"
+import { useDocsSidebar } from "../providers/docs-sidebar-provider"
+import { DocPagination } from "../ui/doc-pagination"
 
 type NavLink = {
   href: string
@@ -17,6 +18,13 @@ type NavSection = {
   title: string
   links: NavLink[]
 }
+
+const mainLinks = [
+  { href: "/docs", label: "Documentation" },
+  { href: "/components", label: "Components" },
+  { href: "/templates", label: "Templates", badge: "New" },
+  { href: "/showcase", label: "Showcase" },
+]
 
 const sidebarLinks: NavSection[] = [
   {
@@ -58,9 +66,17 @@ const sidebarLinks: NavSection[] = [
   },
 ]
 
+const flattenedLinks = sidebarLinks.reduce<Array<{ title: string; href: string }>>((acc, section) => {
+  return acc.concat(section.links.map(link => ({ title: link.label, href: link.href })))
+}, [])
+
 export function DocsLayout() {
   const location = useLocation()
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+  const { isSidebarOpen, setIsSidebarOpen } = useDocsSidebar()
+
+  const currentIndex = flattenedLinks.findIndex(link => link.href === location.pathname)
+  const prevPage = currentIndex > 0 ? flattenedLinks[currentIndex - 1] : undefined
+  const nextPage = currentIndex < flattenedLinks.length - 1 ? flattenedLinks[currentIndex + 1] : undefined
 
   return (
     <div className="flex h-[calc(100vh-4rem)] relative">
@@ -77,24 +93,41 @@ export function DocsLayout() {
         )}
       </AnimatePresence>
 
-      {/* Mobile Menu Button */}
-      <div className="absolute left-4 top-4 z-50 lg:hidden">
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={() => setIsSidebarOpen(true)}
-        >
-          <Menu className="h-5 w-5" />
-          <span className="sr-only">Toggle sidebar</span>
-        </Button>
-      </div>
-
       {/* Left Sidebar */}
       <div className="hidden lg:block w-64 border-r border-gray-200 dark:border-gray-800">
         <ScrollArea.Root className="h-full">
           <ScrollArea.Viewport className="h-full">
             <div className="p-6">
               <nav className="space-y-6">
+                {/* Main Navigation Links */}
+                <div>
+                  <ul className="space-y-1">
+                    {mainLinks.map((link) => (
+                      <li key={link.href}>
+                        <Link
+                          to={link.href}
+                          className={`flex items-center justify-between rounded-md px-3 py-1.5 text-sm transition-colors ${
+                            location.pathname === link.href
+                              ? "bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-white"
+                              : "text-gray-600 hover:bg-gray-50 dark:text-gray-400 dark:hover:bg-gray-800/50"
+                          }`}
+                        >
+                          {link.label}
+                          {link.badge && (
+                            <span className="inline-flex items-center rounded-full bg-gradient-to-r from-pink-500/20 via-purple-500/20 to-indigo-500/20 px-2 py-0.5 text-xs font-semibold text-primary shadow-sm">
+                              {link.badge}
+                            </span>
+                          )}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Divider */}
+                <div className="border-t border-border" />
+
+                {/* Existing Sidebar Links */}
                 {sidebarLinks.map((section) => (
                   <div key={section.title}>
                     <h4 className="mb-2 text-sm font-medium text-gray-500 dark:text-gray-400">
@@ -165,6 +198,36 @@ export function DocsLayout() {
             <ScrollArea.Viewport className="h-full">
               <div className="p-6">
                 <nav className="space-y-6">
+                  {/* Main Navigation Links */}
+                  <div>
+                    <ul className="space-y-1">
+                      {mainLinks.map((link) => (
+                        <li key={link.href}>
+                          <Link
+                            to={link.href}
+                            onClick={() => setIsSidebarOpen(false)}
+                            className={`flex items-center justify-between rounded-md px-3 py-1.5 text-sm transition-colors ${
+                              location.pathname === link.href
+                                ? "bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-white"
+                                : "text-gray-600 hover:bg-gray-50 dark:text-gray-400 dark:hover:bg-gray-800/50"
+                            }`}
+                          >
+                            {link.label}
+                            {link.badge && (
+                              <span className="inline-flex items-center rounded-full bg-gradient-to-r from-pink-500/20 via-purple-500/20 to-indigo-500/20 px-2 py-0.5 text-xs font-semibold text-primary shadow-sm">
+                                {link.badge}
+                              </span>
+                            )}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Divider */}
+                  <div className="border-t border-border" />
+
+                  {/* Existing Sidebar Links */}
                   {sidebarLinks.map((section) => (
                     <div key={section.title}>
                       <h4 className="mb-2 text-sm font-medium text-gray-500 dark:text-gray-400">
@@ -211,13 +274,14 @@ export function DocsLayout() {
       {/* Main Content */}
       <ScrollArea.Root className="flex-1">
         <ScrollArea.Viewport className="h-full">
-          <main className="relative mx-auto max-w-4xl px-6 py-8 lg:px-8">
-            <div className="mb-6 pl-12 lg:pl-0">
+          <main className="relative mx-auto max-w-4xl px-4 sm:px-6 py-6 sm:py-8 lg:px-8">
+            <div className="mb-4 sm:mb-6">
               <Breadcrumb />
             </div>
-            <div className="pl-12 lg:pl-0 [&>article]:mt-6">
+            <div className="[&>article]:mt-4 sm:[&>article]:mt-6">
               <Outlet />
             </div>
+            <DocPagination prev={prevPage} next={nextPage} />
           </main>
         </ScrollArea.Viewport>
         <ScrollArea.Scrollbar orientation="vertical" className="w-2">

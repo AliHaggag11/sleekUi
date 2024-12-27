@@ -5,19 +5,14 @@ import { Button } from "./button"
 export function Hero() {
   const { scrollY } = useScroll()
   
-  // Create different fade ranges for each section
-  const badgeOpacity = useTransform(scrollY, [0, 100], [1, 0])
-  const titleOpacity = useTransform(scrollY, [50, 150], [1, 0])
-  const descriptionOpacity = useTransform(scrollY, [100, 200], [1, 0])
-  const ctaOpacity = useTransform(scrollY, [150, 250], [1, 0])
-  const socialOpacity = useTransform(scrollY, [200, 300], [1, 0])
+  // Optimize transforms by using translateY instead of y
+  // and reducing the number of transform calculations
+  const parallaxY = useTransform(scrollY, [0, 300], [0, 100])
+  const scale = useTransform(scrollY, [0, 300], [1, 0.98])
   
-  // Subtle scale effect for each section
-  const badgeScale = useTransform(scrollY, [0, 100], [1, 0.95])
-  const titleScale = useTransform(scrollY, [50, 150], [1, 0.95])
-  const descriptionScale = useTransform(scrollY, [100, 200], [1, 0.95])
-  const ctaScale = useTransform(scrollY, [150, 250], [1, 0.95])
-  const socialScale = useTransform(scrollY, [200, 300], [1, 0.95])
+  // Combine background effects into a single transform
+  const bgParallax = useTransform(scrollY, [0, 300], [0, 50])
+  const blobOpacity = useTransform(scrollY, [0, 300], [1, 0.7])
 
   // Array of avatar URLs using UI Faces API
   const avatars = [
@@ -29,31 +24,46 @@ export function Hero() {
   ]
 
   return (
-    <div className="relative overflow-hidden bg-background min-h-screen flex flex-col items-center justify-center">
-      {/* Animated Background Effects */}
-      <div className="pointer-events-none absolute inset-0">
-        {/* Grid */}
-        <div className="absolute inset-0 bg-grid-white/[0.02] dark:bg-grid-white/[0.02] bg-black/[0.02] bg-[size:60px_60px] [mask-image:radial-gradient(white,transparent_85%)]" />
+    <div className="relative overflow-hidden bg-background min-h-screen flex flex-col items-center justify-center will-change-transform">
+      {/* Optimized Background Effects */}
+      <motion.div 
+        className="pointer-events-none absolute inset-0 will-change-transform"
+        style={{ 
+          translateY: bgParallax,
+          opacity: blobOpacity 
+        }}
+      >
+        {/* Grid with reduced complexity */}
+        <div className="absolute inset-0 bg-grid-white/[0.02] dark:bg-grid-white/[0.02] bg-[size:60px_60px] [mask-image:radial-gradient(white,transparent_85%)]" />
         
-        {/* Gradient Blob */}
-        <div className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-purple-500/10 dark:bg-purple-500/30 rounded-full blur-3xl animate-blob" />
-        <div className="absolute top-1/4 right-1/4 translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-indigo-500/10 dark:bg-indigo-500/30 rounded-full blur-3xl animate-blob animation-delay-2000" />
-        <div className="absolute bottom-1/4 left-1/2 -translate-x-1/2 translate-y-1/2 w-96 h-96 bg-pink-500/10 dark:bg-pink-500/30 rounded-full blur-3xl animate-blob animation-delay-4000" />
-
-        {/* Noise Texture */}
-        <div className="absolute inset-0 opacity-10 dark:opacity-20 mix-blend-overlay">
-          <div className="absolute inset-0 bg-repeat bg-noise" />
+        {/* Simplified Gradient Blobs */}
+        <div className="absolute inset-0">
+          <div className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] 
+            bg-gradient-to-r from-purple-500/20 to-transparent dark:from-purple-500/30 
+            rounded-full blur-3xl animate-blob will-change-transform" 
+          />
+          <div className="absolute top-1/4 right-1/4 translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] 
+            bg-gradient-to-l from-indigo-500/20 to-transparent dark:from-indigo-500/30 
+            rounded-full blur-3xl animate-blob animation-delay-2000 will-change-transform"
+          />
+          <div className="absolute bottom-1/4 left-1/2 -translate-x-1/2 translate-y-1/2 w-[500px] h-[500px] 
+            bg-gradient-to-t from-pink-500/20 to-transparent dark:from-pink-500/30 
+            rounded-full blur-3xl animate-blob animation-delay-4000 will-change-transform"
+          />
         </div>
 
-        {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-tr from-background via-indigo-50/5 dark:via-indigo-950/5 to-background" />
-      </div>
+        {/* Simplified overlays */}
+        <div className="absolute inset-0 bg-gradient-to-tr from-background via-transparent to-background" />
+      </motion.div>
 
-      <div className="container relative px-4 flex flex-col items-center justify-center gap-16 pt-24 pb-16">
-        {/* Update Badge */}
+      <motion.div 
+        className="container relative px-4 flex flex-col items-center justify-center gap-16 pt-24 pb-16 will-change-transform"
+        style={{ scale }}
+      >
+        {/* Content sections with optimized transforms */}
         <motion.div
-          style={{ opacity: badgeOpacity, scale: badgeScale }}
-          className="flex max-w-fit items-center justify-center space-x-2 overflow-hidden rounded-full border bg-background/30 px-4 sm:px-7 py-2 shadow-md backdrop-blur transition-all hover:bg-background/50"
+          style={{ translateY: parallaxY }}
+          className="flex max-w-fit items-center justify-center space-x-2 overflow-hidden rounded-full border bg-background/30 px-4 sm:px-7 py-2 shadow-md backdrop-blur transition-all hover:bg-background/50 will-change-transform"
         >
           <span className="hidden xs:inline text-sm font-semibold">Update</span>
           <div className="hidden xs:block mx-2 h-4 w-[1px] bg-gradient-to-b from-border/0 via-border to-border/0" />
@@ -70,11 +80,10 @@ export function Hero() {
           <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-muted-foreground shrink-0" />
         </motion.div>
 
-        {/* Main Content */}
         <div className="max-w-4xl text-center relative z-10">
           <motion.h1 
-            style={{ opacity: titleOpacity, scale: titleScale }}
-            className="bg-gradient-to-br from-foreground to-foreground/70 bg-clip-text text-transparent text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight"
+            style={{ translateY: useTransform(parallaxY, y => y * 0.5) }}
+            className="bg-gradient-to-br from-foreground to-foreground/70 bg-clip-text text-transparent text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight will-change-transform"
           >
             The Components Your{' '}
             <span className="relative inline-block">
@@ -92,17 +101,16 @@ export function Hero() {
           </motion.h1>
 
           <motion.p 
-            style={{ opacity: descriptionOpacity, scale: descriptionScale }}
-            className="mx-auto mt-6 max-w-2xl text-base sm:text-lg md:text-xl text-muted-foreground"
+            style={{ translateY: useTransform(parallaxY, y => y * 0.25) }}
+            className="mx-auto mt-6 max-w-2xl text-base sm:text-lg md:text-xl text-muted-foreground will-change-transform"
           >
             50+ Free beautifull interactive react/nextjs components based on tailwindcss, 
             framer-motion, gsap, threejs etc
           </motion.p>
 
-          {/* CTA Buttons */}
           <motion.div 
-            style={{ opacity: ctaOpacity, scale: ctaScale }}
-            className="mt-8 flex flex-wrap justify-center gap-4"
+            style={{ translateY: useTransform(parallaxY, y => y * 0.15) }}
+            className="mt-8 flex flex-wrap justify-center gap-4 will-change-transform"
           >
             <Button 
               size="lg"
@@ -123,10 +131,9 @@ export function Hero() {
             </Button>
           </motion.div>
 
-          {/* Social Proof */}
           <motion.div 
-            style={{ opacity: socialOpacity, scale: socialScale }}
-            className="mt-12 flex items-center justify-center gap-8"
+            style={{ translateY: useTransform(parallaxY, y => y * 0.05) }}
+            className="mt-12 flex items-center justify-center gap-8 will-change-transform"
           >
             <div className="flex -space-x-4">
               {avatars.map((avatar, i) => (
@@ -165,9 +172,10 @@ export function Hero() {
           </motion.div>
         </div>
 
-        {/* Preview Grid */}
+        {/* Preview Grid with optimized animations */}
         <motion.div 
-          className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 will-change-transform"
+          style={{ translateY: useTransform(parallaxY, y => y * -0.5) }}
         >
           {['Accordion', 'Globe', 'Mouse Trail'].map((title, i) => (
             <motion.div
@@ -211,7 +219,7 @@ export function Hero() {
             </motion.div>
           ))}
         </motion.div>
-      </div>
+      </motion.div>
     </div>
   )
 } 
