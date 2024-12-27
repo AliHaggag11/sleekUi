@@ -174,51 +174,49 @@ render(<Demo />)`}</Code>
         <h3 id="customization">Customization</h3>
         <p>The component accepts the following props:</p>
         
-        <div className="-mx-6 my-4 overflow-x-auto overscroll-x-contain px-6">
-          <div className="min-w-full">
-            <table className="w-full border-collapse text-sm">
-              <thead>
-                <tr className="border-b">
-                  <th className="py-2 px-2 sm:px-4 text-left whitespace-nowrap">Property</th>
-                  <th className="py-2 px-2 sm:px-4 text-left whitespace-nowrap">Type</th>
-                  <th className="py-2 px-2 sm:px-4 text-left whitespace-nowrap">Default</th>
-                  <th className="py-2 px-2 sm:px-4 text-left">Description</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr className="border-b">
-                  <td className="py-2 px-2 sm:px-4 font-mono text-xs sm:text-sm whitespace-nowrap">children</td>
-                  <td className="py-2 px-2 sm:px-4 font-mono text-xs sm:text-sm whitespace-nowrap">React.ReactNode</td>
-                  <td className="py-2 px-2 sm:px-4 whitespace-nowrap">Required</td>
-                  <td className="py-2 px-2 sm:px-4">The content to be displayed in the marquee</td>
-                </tr>
-                <tr className="border-b">
-                  <td className="py-2 px-2 sm:px-4 font-mono text-xs sm:text-sm whitespace-nowrap">speed</td>
-                  <td className="py-2 px-2 sm:px-4 font-mono text-xs sm:text-sm whitespace-nowrap">number</td>
-                  <td className="py-2 px-2 sm:px-4 whitespace-nowrap">20</td>
-                  <td className="py-2 px-2 sm:px-4">Controls the scrolling speed (lower = slower)</td>
-                </tr>
-                <tr className="border-b">
-                  <td className="py-2 px-2 sm:px-4 font-mono text-xs sm:text-sm whitespace-nowrap">direction</td>
-                  <td className="py-2 px-2 sm:px-4 font-mono text-xs sm:text-sm whitespace-nowrap">"left" | "right"</td>
-                  <td className="py-2 px-2 sm:px-4 whitespace-nowrap">"left"</td>
-                  <td className="py-2 px-2 sm:px-4">The direction of the marquee scroll</td>
-                </tr>
-                <tr className="border-b">
-                  <td className="py-2 px-2 sm:px-4 font-mono text-xs sm:text-sm whitespace-nowrap">pauseOnHover</td>
-                  <td className="py-2 px-2 sm:px-4 font-mono text-xs sm:text-sm whitespace-nowrap">boolean</td>
-                  <td className="py-2 px-2 sm:px-4 whitespace-nowrap">false</td>
-                  <td className="py-2 px-2 sm:px-4">Whether to pause the animation on hover</td>
-                </tr>
-                <tr className="border-b">
-                  <td className="py-2 px-2 sm:px-4 font-mono text-xs sm:text-sm whitespace-nowrap">className</td>
-                  <td className="py-2 px-2 sm:px-4 font-mono text-xs sm:text-sm whitespace-nowrap">string</td>
-                  <td className="py-2 px-2 sm:px-4 whitespace-nowrap">undefined</td>
-                  <td className="py-2 px-2 sm:px-4">Additional CSS classes to apply</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+        <div className="w-full max-w-[calc(100vw-2rem)] overflow-x-auto">
+          <table className="w-full border-collapse text-sm">
+            <thead>
+              <tr className="border-b">
+                <th className="py-2 px-4 text-left font-medium">Property</th>
+                <th className="py-2 px-4 text-left font-medium">Type</th>
+                <th className="py-2 px-4 text-left font-medium">Default</th>
+                <th className="py-2 px-4 text-left font-medium">Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr className="border-b">
+                <td className="py-2 px-4 font-mono text-xs sm:text-sm whitespace-nowrap">children</td>
+                <td className="py-2 px-4 font-mono text-xs sm:text-sm whitespace-nowrap">React.ReactNode</td>
+                <td className="py-2 px-4 whitespace-nowrap">Required</td>
+                <td className="py-2 px-4">The content to be displayed in the marquee</td>
+              </tr>
+              <tr className="border-b">
+                <td className="py-2 px-4 font-mono text-xs sm:text-sm whitespace-nowrap">speed</td>
+                <td className="py-2 px-4 font-mono text-xs sm:text-sm whitespace-nowrap">number</td>
+                <td className="py-2 px-4 whitespace-nowrap">20</td>
+                <td className="py-2 px-4">Controls the scrolling speed (lower = slower)</td>
+              </tr>
+              <tr className="border-b">
+                <td className="py-2 px-4 font-mono text-xs sm:text-sm whitespace-nowrap">direction</td>
+                <td className="py-2 px-4 font-mono text-xs sm:text-sm whitespace-nowrap">"left" | "right"</td>
+                <td className="py-2 px-4 whitespace-nowrap">"left"</td>
+                <td className="py-2 px-4">The direction of the marquee scroll</td>
+              </tr>
+              <tr className="border-b">
+                <td className="py-2 px-4 font-mono text-xs sm:text-sm whitespace-nowrap">pauseOnHover</td>
+                <td className="py-2 px-4 font-mono text-xs sm:text-sm whitespace-nowrap">boolean</td>
+                <td className="py-2 px-4 whitespace-nowrap">false</td>
+                <td className="py-2 px-4">Whether to pause the animation on hover</td>
+              </tr>
+              <tr className="border-b">
+                <td className="py-2 px-4 font-mono text-xs sm:text-sm whitespace-nowrap">className</td>
+                <td className="py-2 px-4 font-mono text-xs sm:text-sm whitespace-nowrap">string</td>
+                <td className="py-2 px-4 whitespace-nowrap">undefined</td>
+                <td className="py-2 px-4">Additional CSS classes to apply</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </section>
 
@@ -233,7 +231,7 @@ render(<Demo />)`}</Code>
         <Code 
           language="tsx"
           scope={{ Marquee }}
-          className="text-[13px] sm:text-sm"
+          className="text-xs sm:text-sm md:text-base w-full max-w-[calc(100vw-2rem)] overflow-x-auto"
         >{`function Demo() {
   const brands = [
     { name: "Vercel", icon: "▲", color: { light: "#171717", dark: "#fff" } },
@@ -287,8 +285,8 @@ render(<Demo />)`}</Code>
 
 render(<Demo />)`}</Code>
 
-        <div className="-mx-6 mt-4 px-6">
-          <div className="relative overflow-hidden rounded-xl border border-blue-500/20 dark:border-blue-400/20">
+        <div className="-mx-4 sm:-mx-6 px-4 sm:px-6">
+          <div className="relative overflow-hidden rounded-xl">
             {/* Background Effects */}
             <div className="absolute inset-0 pointer-events-none">
               {/* Grid Pattern */}
@@ -313,12 +311,12 @@ render(<Demo />)`}</Code>
                 <span className="text-[10px]">💡</span>
                 Pro Tips for Logo Clouds
               </h4>
-              <ul className="mt-2 list-disc pl-4 text-xs sm:text-sm space-y-1.5 text-gray-600 dark:text-gray-300">
-                <li>Add subtle hover animations to make the experience more interactive</li>
-                <li>Use backdrop blur and gradients for a modern glassmorphism effect</li>
-                <li>Include brand-specific colors to maintain brand identity</li>
-                <li>Layer multiple effects (scale, opacity, color) for rich interactions</li>
-                <li>Add wider gradient masks to create smoother edge transitions</li>
+              <ul className="list-disc pl-4 sm:pl-6 space-y-2 text-sm sm:text-base">
+                <li className="break-words">Add subtle hover animations to make the experience more interactive</li>
+                <li className="break-words">Use backdrop blur and gradients for a modern glassmorphism effect</li>
+                <li className="break-words">Include brand-specific colors to maintain brand identity</li>
+                <li className="break-words">Layer multiple effects (scale, opacity, color) for rich interactions</li>
+                <li className="break-words">Add wider gradient masks to create smoother edge transitions</li>
               </ul>
             </div>
           </div>
@@ -331,7 +329,7 @@ render(<Demo />)`}</Code>
         <Code 
           language="tsx"
           scope={{ Marquee }}
-          className="text-[13px] sm:text-sm"
+          className="text-xs sm:text-sm md:text-base w-full max-w-[calc(100vw-2rem)] overflow-x-auto"
         >{`function Demo() {
   const testimonials = [
     {
@@ -419,8 +417,8 @@ render(<Demo />)`}</Code>
 
 render(<Demo />)`}</Code>
 
-        <div className="-mx-6 mt-4 px-6">
-          <div className="relative overflow-hidden rounded-xl border border-blue-500/20 dark:border-blue-400/20">
+        <div className="-mx-4 sm:-mx-6 px-4 sm:px-6">
+          <div className="relative overflow-hidden rounded-xl">
             {/* Background Effects */}
             <div className="absolute inset-0 pointer-events-none">
               {/* Grid Pattern */}
@@ -445,13 +443,13 @@ render(<Demo />)`}</Code>
                 <span className="text-[10px]">💡</span>
                 Pro Tips for Testimonials
               </h4>
-              <ul className="mt-2 list-disc pl-4 text-xs sm:text-sm space-y-1.5 text-gray-600 dark:text-gray-300">
-                <li>Use dark backgrounds for a premium feel</li>
-                <li>Add star ratings to increase credibility</li>
-                <li>Position quote marks subtly in the background</li>
-                <li>Keep testimonials concise and impactful</li>
-                <li>Include clear author attribution with roles</li>
-                <li>Maintain consistent spacing and typography</li>
+              <ul className="list-disc pl-4 sm:pl-6 space-y-2 text-sm sm:text-base">
+                <li className="break-words">Use dark backgrounds for a premium feel</li>
+                <li className="break-words">Add star ratings to increase credibility</li>
+                <li className="break-words">Position quote marks subtly in the background</li>
+                <li className="break-words">Keep testimonials concise and impactful</li>
+                <li className="break-words">Include clear author attribution with roles</li>
+                <li className="break-words">Maintain consistent spacing and typography</li>
               </ul>
             </div>
           </div>
