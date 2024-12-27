@@ -124,6 +124,7 @@ export function Marquee({
         <Code 
           language="tsx"
           scope={{ Marquee }}
+          className="text-[13px] sm:text-sm"
         >{`function Demo() {
   const items = [
     { icon: "⚡️", label: "Fast" },
@@ -135,23 +136,23 @@ export function Marquee({
   ]
 
   return (
-    <div className="relative overflow-hidden rounded-xl bg-gradient-to-r from-gray-900/40 to-gray-900/0">
-      <Marquee className="py-12" speed={40} pauseOnHover>
-        <div className="flex gap-8 px-2">
+    <div className="relative overflow-hidden rounded-xl bg-gradient-to-r from-gray-50 via-white to-gray-50 dark:from-gray-900/40 dark:via-gray-900/20 dark:to-gray-900/40">
+      <Marquee className="py-8 sm:py-12" speed={40} pauseOnHover>
+        <div className="flex gap-4 sm:gap-8 px-2">
           {items.map((item) => (
             <div 
               key={item.label}
-              className="flex items-center gap-4 rounded-xl bg-gray-900/50 px-6 py-4 backdrop-blur-sm border border-white/[0.08]"
+              className="flex items-center gap-2 sm:gap-4 rounded-xl bg-white dark:bg-gray-900/50 px-4 sm:px-6 py-3 sm:py-4 backdrop-blur-sm border border-gray-200 dark:border-white/[0.08] shadow-sm dark:shadow-none hover:shadow-md dark:hover:shadow-none transition-all duration-300"
             >
-              <span className="text-xl">{item.icon}</span>
-              <span className="text-sm font-medium text-white/90">{item.label}</span>
+              <span className="text-lg sm:text-xl">{item.icon}</span>
+              <span className="text-xs sm:text-sm font-medium text-gray-700 dark:text-white/90">{item.label}</span>
             </div>
           ))}
         </div>
       </Marquee>
       
-      <div className="pointer-events-none absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-background" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-background" />
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-16 sm:w-24 bg-gradient-to-r from-gray-50 dark:from-gray-900" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 w-16 sm:w-24 bg-gradient-to-l from-gray-50 dark:from-gray-900" />
     </div>
   )
 }
@@ -174,49 +175,51 @@ render(<Demo />)`}</Code>
         <h3 id="customization">Customization</h3>
         <p>The component accepts the following props:</p>
         
-        <div className="my-4 w-full overflow-y-auto">
-          <table className="w-full border-collapse">
-            <thead>
-              <tr className="border-b">
-                <th className="py-2 px-4 text-left">Prop</th>
-                <th className="py-2 px-4 text-left">Type</th>
-                <th className="py-2 px-4 text-left">Default</th>
-                <th className="py-2 px-4 text-left">Description</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr className="border-b">
-                <td className="py-2 px-4 font-mono text-sm">children</td>
-                <td className="py-2 px-4 font-mono text-sm">React.ReactNode</td>
-                <td className="py-2 px-4">Required</td>
-                <td className="py-2 px-4">The content to be displayed in the marquee</td>
-              </tr>
-              <tr className="border-b">
-                <td className="py-2 px-4 font-mono text-sm">speed</td>
-                <td className="py-2 px-4 font-mono text-sm">number</td>
-                <td className="py-2 px-4">20</td>
-                <td className="py-2 px-4">Controls the scrolling speed (lower = slower)</td>
-              </tr>
-              <tr className="border-b">
-                <td className="py-2 px-4 font-mono text-sm">direction</td>
-                <td className="py-2 px-4 font-mono text-sm">"left" | "right"</td>
-                <td className="py-2 px-4">"left"</td>
-                <td className="py-2 px-4">The direction of the marquee scroll</td>
-              </tr>
-              <tr className="border-b">
-                <td className="py-2 px-4 font-mono text-sm">pauseOnHover</td>
-                <td className="py-2 px-4 font-mono text-sm">boolean</td>
-                <td className="py-2 px-4">false</td>
-                <td className="py-2 px-4">Whether to pause the animation on hover</td>
-              </tr>
-              <tr className="border-b">
-                <td className="py-2 px-4 font-mono text-sm">className</td>
-                <td className="py-2 px-4 font-mono text-sm">string</td>
-                <td className="py-2 px-4">undefined</td>
-                <td className="py-2 px-4">Additional CSS classes to apply</td>
-              </tr>
-            </tbody>
-          </table>
+        <div className="-mx-6 my-4 overflow-x-auto overscroll-x-contain px-6">
+          <div className="min-w-full md:w-[40rem]">
+            <table className="w-full border-collapse text-sm">
+              <thead>
+                <tr className="border-b">
+                  <th className="py-2 px-2 sm:px-4 text-left">Prop</th>
+                  <th className="py-2 px-2 sm:px-4 text-left">Type</th>
+                  <th className="py-2 px-2 sm:px-4 text-left">Default</th>
+                  <th className="py-2 px-2 sm:px-4 text-left">Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="border-b">
+                  <td className="py-2 px-2 sm:px-4 font-mono text-xs sm:text-sm">children</td>
+                  <td className="py-2 px-2 sm:px-4 font-mono text-xs sm:text-sm">React.ReactNode</td>
+                  <td className="py-2 px-2 sm:px-4">Required</td>
+                  <td className="py-2 px-2 sm:px-4">The content to be displayed in the marquee</td>
+                </tr>
+                <tr className="border-b">
+                  <td className="py-2 px-2 sm:px-4 font-mono text-xs sm:text-sm">speed</td>
+                  <td className="py-2 px-2 sm:px-4 font-mono text-xs sm:text-sm">number</td>
+                  <td className="py-2 px-2 sm:px-4">20</td>
+                  <td className="py-2 px-2 sm:px-4">Controls the scrolling speed (lower = slower)</td>
+                </tr>
+                <tr className="border-b">
+                  <td className="py-2 px-2 sm:px-4 font-mono text-xs sm:text-sm">direction</td>
+                  <td className="py-2 px-2 sm:px-4 font-mono text-xs sm:text-sm">"left" | "right"</td>
+                  <td className="py-2 px-2 sm:px-4">"left"</td>
+                  <td className="py-2 px-2 sm:px-4">The direction of the marquee scroll</td>
+                </tr>
+                <tr className="border-b">
+                  <td className="py-2 px-2 sm:px-4 font-mono text-xs sm:text-sm">pauseOnHover</td>
+                  <td className="py-2 px-2 sm:px-4 font-mono text-xs sm:text-sm">boolean</td>
+                  <td className="py-2 px-2 sm:px-4">false</td>
+                  <td className="py-2 px-2 sm:px-4">Whether to pause the animation on hover</td>
+                </tr>
+                <tr className="border-b">
+                  <td className="py-2 px-2 sm:px-4 font-mono text-xs sm:text-sm">className</td>
+                  <td className="py-2 px-2 sm:px-4 font-mono text-xs sm:text-sm">string</td>
+                  <td className="py-2 px-2 sm:px-4">undefined</td>
+                  <td className="py-2 px-2 sm:px-4">Additional CSS classes to apply</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </section>
 
@@ -231,63 +234,95 @@ render(<Demo />)`}</Code>
         <Code 
           language="tsx"
           scope={{ Marquee }}
+          className="text-[13px] sm:text-sm"
         >{`function Demo() {
   const brands = [
-    { name: "Vercel", icon: "▲", color: "#fff" },
-    { name: "React", icon: "⚛️", color: "#61DAFB" },
-    { name: "Next.js", icon: "𝗡", color: "#fff" },
-    { name: "TypeScript", icon: "TS", color: "#3178C6" },
-    { name: "Tailwind", icon: "🌊", color: "#38BDF8" },
-    { name: "Framer", icon: "🔲", color: "#BB8EFF" },
+    { name: "Vercel", icon: "▲", color: { light: "#171717", dark: "#fff" } },
+    { name: "React", icon: "⚛️", color: { light: "#61DAFB", dark: "#61DAFB" } },
+    { name: "Next.js", icon: "𝗡", color: { light: "#171717", dark: "#fff" } },
+    { name: "TypeScript", icon: "TS", color: { light: "#3178C6", dark: "#3178C6" } },
+    { name: "Tailwind", icon: "🌊", color: { light: "#38BDF8", dark: "#38BDF8" } },
+    { name: "Framer", icon: "🔲", color: { light: "#BB8EFF", dark: "#BB8EFF" } },
   ]
 
   return (
-    <div className="relative overflow-hidden rounded-xl bg-gradient-to-r from-gray-900/40 to-gray-900/0">
+    <div className="relative overflow-hidden rounded-xl bg-gradient-to-r from-gray-50 via-white to-gray-50 dark:from-gray-900/40 dark:via-gray-900/20 dark:to-gray-900/40">
       <Marquee 
         speed={20} 
-        className="py-12"
+        className="py-8 sm:py-12"
         pauseOnHover
       >
-        <div className="flex items-center gap-12 px-4">
+        <div className="flex items-center gap-6 sm:gap-12 px-4">
           {brands.map((brand) => (
             <div
               key={brand.name}
-              className="group relative flex items-center gap-3 rounded-xl border border-white/[0.08] bg-black/30 px-6 py-4 backdrop-blur-[2px] transition-all duration-300 hover:border-white/[0.12] hover:bg-black/40"
+              className="group relative flex items-center gap-2 sm:gap-3 rounded-xl border border-gray-200 dark:border-white/[0.08] bg-white dark:bg-black/30 px-4 sm:px-6 py-3 sm:py-4 backdrop-blur-[2px] transition-all duration-300 hover:border-gray-300 dark:hover:border-white/[0.12] hover:shadow-md dark:hover:shadow-none"
             >
               <div className="relative z-10 flex items-center gap-3">
                 <span 
                   className="text-xl transition-transform duration-500 group-hover:scale-110 group-hover:transform" 
-                  style={{ color: brand.color }}
+                  style={{
+                    color: brand.color.light,
+                    ['@media (prefers-color-scheme: dark)']: {
+                      color: brand.color.dark
+                    }
+                  }}
                 >
                   {brand.icon}
                 </span>
-                <span className="font-medium text-white/70 transition-colors duration-300 group-hover:text-white/90">
+                <span className="font-medium text-gray-700 dark:text-white/70 transition-colors duration-300 group-hover:text-gray-900 dark:group-hover:text-white/90">
                   {brand.name}
                 </span>
               </div>
-              <div className="absolute inset-0 z-0 rounded-xl bg-gradient-to-br from-white/[0.03] to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+              <div className="absolute inset-0 z-0 rounded-xl bg-gradient-to-br from-gray-100 dark:from-white/[0.03] to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
             </div>
           ))}
         </div>
       </Marquee>
       
-      <div className="pointer-events-none absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-gray-900" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-gray-900" />
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-16 sm:w-32 bg-gradient-to-r from-gray-50 dark:from-gray-900" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 w-16 sm:w-32 bg-gradient-to-l from-gray-50 dark:from-gray-900" />
     </div>
   )
 }
 
 render(<Demo />)`}</Code>
 
-        <div className="mt-4 rounded-lg border-l-4 border-blue-500 bg-blue-500/10 p-4">
-          <h4 className="font-medium text-blue-600">Pro Tips for Logo Clouds</h4>
-          <ul className="mt-2 list-disc pl-4 text-sm">
-            <li>Add subtle hover animations to make the experience more interactive</li>
-            <li>Use backdrop blur and gradients for a modern glassmorphism effect</li>
-            <li>Include brand-specific colors to maintain brand identity</li>
-            <li>Layer multiple effects (scale, opacity, color) for rich interactions</li>
-            <li>Add wider gradient masks to create smoother edge transitions</li>
-          </ul>
+        <div className="-mx-6 mt-4 px-6">
+          <div className="relative overflow-hidden rounded-xl border border-blue-500/20 dark:border-blue-400/20">
+            {/* Background Effects */}
+            <div className="absolute inset-0 pointer-events-none">
+              {/* Grid Pattern */}
+              <div className="absolute inset-0 bg-grid-white/[0.03] dark:bg-grid-white/[0.05] bg-[size:20px_20px] [mask-image:radial-gradient(white,transparent_90%)]" />
+              
+              {/* Gradient Blobs */}
+              <div className="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] bg-blue-500/30 dark:bg-blue-500/40 rounded-full blur-3xl animate-blob" />
+              <div className="absolute bottom-0 right-0 w-[150px] h-[150px] bg-indigo-500/20 dark:bg-indigo-500/30 rounded-full blur-3xl animate-blob animation-delay-2000" />
+
+              {/* Noise Texture */}
+              <div className="absolute inset-0 opacity-30 dark:opacity-40">
+                <div className="absolute inset-0 bg-repeat bg-noise mix-blend-overlay" />
+              </div>
+
+              {/* Backdrop Blur */}
+              <div className="absolute inset-0 backdrop-blur-md bg-white/70 dark:bg-gray-900/70" />
+            </div>
+
+            {/* Content */}
+            <div className="relative p-4 sm:p-6">
+              <h4 className="font-medium text-blue-600 dark:text-blue-400 flex items-center gap-2 text-sm sm:text-base">
+                <span className="text-[10px]">💡</span>
+                Pro Tips for Logo Clouds
+              </h4>
+              <ul className="mt-2 list-disc pl-4 text-xs sm:text-sm space-y-1.5 text-gray-600 dark:text-gray-300">
+                <li>Add subtle hover animations to make the experience more interactive</li>
+                <li>Use backdrop blur and gradients for a modern glassmorphism effect</li>
+                <li>Include brand-specific colors to maintain brand identity</li>
+                <li>Layer multiple effects (scale, opacity, color) for rich interactions</li>
+                <li>Add wider gradient masks to create smoother edge transitions</li>
+              </ul>
+            </div>
+          </div>
         </div>
 
         <h3 id="testimonials">Testimonials</h3>
@@ -297,6 +332,7 @@ render(<Demo />)`}</Code>
         <Code 
           language="tsx"
           scope={{ Marquee }}
+          className="text-[13px] sm:text-sm"
         >{`function Demo() {
   const testimonials = [
     {
@@ -323,21 +359,21 @@ render(<Demo />)`}</Code>
   ]
 
   return (
-    <div className="relative overflow-hidden rounded-xl bg-[#0A0A0A]">
+    <div className="relative overflow-hidden rounded-xl bg-gray-50 dark:bg-[#0A0A0A]">
       <Marquee 
         speed={25} 
         pauseOnHover 
-        className="py-12"
+        className="py-8 sm:py-12"
       >
-        <div className="flex gap-8 px-4">
+        <div className="flex gap-4 sm:gap-8 px-4">
           {testimonials.map((item) => (
             <div
               key={item.author}
-              className="relative w-[400px] rounded-xl bg-[#141414] p-8"
+              className="relative w-[400px] rounded-xl bg-white dark:bg-[#141414] p-8 shadow-sm dark:shadow-none"
             >
               {/* Quote Icon */}
               <div className="absolute right-8 top-8">
-                <span className="text-4xl text-white/10 font-serif">
+                <span className="text-4xl text-gray-200 dark:text-white/10 font-serif">
                   "
                 </span>
               </div>
@@ -350,7 +386,7 @@ render(<Demo />)`}</Code>
               </div>
 
               {/* Quote Text */}
-              <p className="text-[15px] leading-relaxed text-white/70 mb-8 line-clamp-3">
+              <p className="text-[15px] leading-relaxed text-gray-600 dark:text-white/70 mb-8 line-clamp-3">
                 {item.quote}
               </p>
 
@@ -362,10 +398,10 @@ render(<Demo />)`}</Code>
                   className="h-12 w-12 rounded-full object-cover"
                 />
                 <div className="min-w-0 flex-1">
-                  <div className="font-medium text-white truncate">
+                  <div className="font-medium text-gray-900 dark:text-white truncate">
                     {item.author}
                   </div>
-                  <div className="text-sm text-white/50 truncate">
+                  <div className="text-sm text-gray-500 dark:text-white/50 truncate">
                     {item.role}
                   </div>
                 </div>
@@ -376,24 +412,50 @@ render(<Demo />)`}</Code>
       </Marquee>
 
       {/* Edge Gradients */}
-      <div className="pointer-events-none absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#0A0A0A]" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-[#0A0A0A]" />
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-16 sm:w-32 bg-gradient-to-r from-gray-50 dark:from-[#0A0A0A]" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 w-16 sm:w-32 bg-gradient-to-l from-gray-50 dark:from-[#0A0A0A]" />
     </div>
   )
 }
 
 render(<Demo />)`}</Code>
 
-        <div className="mt-4 rounded-lg border-l-4 border-blue-500 bg-blue-500/10 p-4">
-          <h4 className="font-medium text-blue-600">Pro Tips for Testimonials</h4>
-          <ul className="mt-2 list-disc pl-4 text-sm">
-            <li>Use dark backgrounds for a premium feel</li>
-            <li>Add star ratings to increase credibility</li>
-            <li>Position quote marks subtly in the background</li>
-            <li>Keep testimonials concise and impactful</li>
-            <li>Include clear author attribution with roles</li>
-            <li>Maintain consistent spacing and typography</li>
-          </ul>
+        <div className="-mx-6 mt-4 px-6">
+          <div className="relative overflow-hidden rounded-xl border border-blue-500/20 dark:border-blue-400/20">
+            {/* Background Effects */}
+            <div className="absolute inset-0 pointer-events-none">
+              {/* Grid Pattern */}
+              <div className="absolute inset-0 bg-grid-white/[0.03] dark:bg-grid-white/[0.05] bg-[size:20px_20px] [mask-image:radial-gradient(white,transparent_90%)]" />
+              
+              {/* Gradient Blobs */}
+              <div className="absolute top-1/2 right-1/4 translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] bg-blue-500/30 dark:bg-blue-500/40 rounded-full blur-3xl animate-blob animation-delay-4000" />
+              <div className="absolute bottom-0 left-0 w-[150px] h-[150px] bg-indigo-500/20 dark:bg-indigo-500/30 rounded-full blur-3xl animate-blob animation-delay-2000" />
+
+              {/* Noise Texture */}
+              <div className="absolute inset-0 opacity-30 dark:opacity-40">
+                <div className="absolute inset-0 bg-repeat bg-noise mix-blend-overlay" />
+              </div>
+
+              {/* Backdrop Blur */}
+              <div className="absolute inset-0 backdrop-blur-md bg-white/70 dark:bg-gray-900/70" />
+            </div>
+
+            {/* Content */}
+            <div className="relative p-4 sm:p-6">
+              <h4 className="font-medium text-blue-600 dark:text-blue-400 flex items-center gap-2 text-sm sm:text-base">
+                <span className="text-[10px]">💡</span>
+                Pro Tips for Testimonials
+              </h4>
+              <ul className="mt-2 list-disc pl-4 text-xs sm:text-sm space-y-1.5 text-gray-600 dark:text-gray-300">
+                <li>Use dark backgrounds for a premium feel</li>
+                <li>Add star ratings to increase credibility</li>
+                <li>Position quote marks subtly in the background</li>
+                <li>Keep testimonials concise and impactful</li>
+                <li>Include clear author attribution with roles</li>
+                <li>Maintain consistent spacing and typography</li>
+              </ul>
+            </div>
+          </div>
         </div>
       </section>
 
