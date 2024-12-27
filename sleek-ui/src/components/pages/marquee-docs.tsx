@@ -1,4 +1,7 @@
 import { DocContent } from "../ui/doc-content"
+import { Code } from "../ui/code"
+import { Marquee } from "../ui/marquee"
+import { cn } from "@/lib/utils"
 
 export function MarqueeDocs() {
   return (
@@ -22,32 +25,6 @@ export function MarqueeDocs() {
         </p>
       </section>
 
-      <section>
-        <h2 id="philosophy">Philosophy</h2>
-        <p>
-          <strong>I personally believe that subtle motion and animation can significantly enhance user engagement. It's one of the key methods of creating a polished, premium feel in your application.</strong> Motion helps guide users' attention and creates a more dynamic, interactive experience.
-        </p>
-
-        <h3 id="trust-factors">Design Considerations</h3>
-        <p>
-          When implementing scrolling content, we need to consider:
-        </p>
-
-        <ul>
-          <li>"Is the motion smooth and natural?"</li>
-          <li>"Does it respect user preferences for reduced motion?"</li>
-          <li>"Is it accessible to all users?"</li>
-        </ul>
-
-        <h3 id="impact">Impact of Motion</h3>
-        <p>
-          <strong>Poor implementation of motion can be jarring and distracting.</strong> It can create a sense of motion sickness and make your application feel unprofessional.
-        </p>
-
-        <p>
-          <strong>Well-implemented motion enhances the user experience without drawing attention to itself.</strong> It should feel natural and purposeful, adding value to the interface without overwhelming it.
-        </p>
-      </section>
 
       {/* Installation */}
       <section>
@@ -55,7 +32,7 @@ export function MarqueeDocs() {
         <p>
           You must install <code className="text-sm font-mono bg-muted px-1.5 py-0.5 rounded-md">framer-motion</code>. As most of our components use <code className="text-sm font-mono bg-muted px-1.5 py-0.5 rounded-md">framer-motion</code> install it too.
         </p>
-        <pre><code className="language-bash">npm install framer-motion</code></pre>
+        <Code language="bash">npm install framer-motion</Code>
       </section>
 
       {/* Main Content */}
@@ -70,19 +47,44 @@ export function MarqueeDocs() {
         <p>
           Here's a simple example of how to use the Marquee component:
         </p>
-        <pre><code className="language-tsx">{`import { Marquee } from "@/components/ui/marquee"
+        <Code 
+          language="tsx"
+          scope={{ Marquee }}
+        >{`function Demo() {
+  const items = [
+    { icon: "⚡️", label: "Fast" },
+    { icon: "🎨", label: "Beautiful" },
+    { icon: "🛠", label: "Customizable" },
+    { icon: "📱", label: "Responsive" },
+    { icon: "🔒", label: "Secure" },
+    { icon: "🚀", label: "Modern" }
+  ]
 
-export function LogoCloud() {
   return (
-    <Marquee className="py-6">
-      <div className="flex items-center gap-8">
-        <img src="/logo1.svg" alt="Logo 1" />
-        <img src="/logo2.svg" alt="Logo 2" />
-        <img src="/logo3.svg" alt="Logo 3" />
-      </div>
-    </Marquee>
+    <div className="relative overflow-hidden rounded-xl bg-gradient-to-r from-gray-900/40 to-gray-900/0">
+      <Marquee className="py-12" speed={40} pauseOnHover>
+        <div className="flex gap-8 px-2">
+          {items.map((item) => (
+            <div 
+              key={item.label}
+              className="flex items-center gap-4 rounded-xl bg-gray-900/50 px-6 py-4 backdrop-blur-sm border border-white/[0.08]"
+            >
+              <span className="text-xl">{item.icon}</span>
+              <span className="text-sm font-medium text-white/90">{item.label}</span>
+            </div>
+          ))}
+        </div>
+      </Marquee>
+      
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-background" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-background" />
+    </div>
   )
-}`}</code></pre>
+}
+
+render(<Demo />)`}</Code>
+
+    
       </section>
 
       <section>
@@ -99,12 +101,12 @@ export function LogoCloud() {
         <p>
           The component accepts several props for customization:
         </p>
-        <pre><code className="language-tsx">{`interface MarqueeProps {
+        <Code language="tsx">{`interface MarqueeProps {
   speed?: number       // Scrolling speed (default: 20)
   direction?: "left" | "right"  // Scroll direction
   pauseOnHover?: boolean  // Whether to pause on hover
   className?: string    // Additional CSS classes
-}`}</code></pre>
+}`}</Code>
       </section>
 
       <section>
@@ -114,7 +116,10 @@ export function LogoCloud() {
         <p>
           A common use case is creating an infinite scrolling logo cloud:
         </p>
-        <pre><code className="language-tsx">{`<Marquee 
+        <Code 
+          language="tsx"
+          scope={{ Marquee }}
+        >{`<Marquee 
   speed={15} 
   className="py-6 bg-muted"
 >
@@ -128,13 +133,16 @@ export function LogoCloud() {
       />
     ))}
   </div>
-</Marquee>`}</code></pre>
+</Marquee>`}</Code>
 
         <h3 id="testimonials">Testimonials</h3>
         <p>
           You can also use it for scrolling testimonials or reviews:
         </p>
-        <pre><code className="language-tsx">{`<Marquee 
+        <Code 
+          language="tsx"
+          scope={{ Marquee }}
+        >{`<Marquee 
   speed={10} 
   pauseOnHover 
   direction="right"
@@ -147,7 +155,7 @@ export function LogoCloud() {
       </div>
     ))}
   </div>
-</Marquee>`}</code></pre>
+</Marquee>`}</Code>
       </section>
 
       <section>
@@ -162,6 +170,21 @@ export function LogoCloud() {
           <li>Keyboard navigable when paused</li>
         </ul>
       </section>
+
+      {/* Example usage: */}
+      <Code 
+        language="typescript" 
+        path="@/components/core/marquee"
+        scope={{ Marquee, cn }}
+      >
+{`<Marquee className="py-6">
+  <div className="flex items-center gap-8">
+    <div className="text-white px-4 py-2 rounded bg-gray-800">Item 1</div>
+    <div className="text-white px-4 py-2 rounded bg-gray-800">Item 2</div>
+    <div className="text-white px-4 py-2 rounded bg-gray-800">Item 3</div>
+  </div>
+</Marquee>`}
+      </Code>
     </DocContent>
   )
 } 

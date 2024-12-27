@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "../ui/button"
 import { useDocsSidebar } from "../providers/docs-sidebar-provider"
 import { DocPagination } from "../ui/doc-pagination"
+import { ContributeCard } from "../ui/contribute-card"
 
 type NavLink = {
   href: string
@@ -341,7 +342,10 @@ export function DocsLayout() {
       </ScrollArea.Root>
 
       {/* Right Sidebar - Table of Contents */}
-      <ScrollArea.Root className="hidden lg:block w-64 border-l border-gray-200 dark:border-gray-800 shrink-0 relative overflow-hidden">
+      <ScrollArea.Root 
+        key={location.pathname}
+        className="hidden lg:block w-64 border-l border-gray-200 dark:border-gray-800 shrink-0 relative overflow-hidden"
+      >
         {/* Background Effects */}
         <div className="absolute inset-0 pointer-events-none">
           {/* Grid */}
@@ -365,7 +369,8 @@ export function DocsLayout() {
             <h4 className="mb-3 text-sm font-medium text-gray-500 dark:text-gray-400">
               On This Page
             </h4>
-            <TableOfContents />
+            <TableOfContents key={location.pathname} />
+            <ContributeCard />
           </div>
         </ScrollArea.Viewport>
         <ScrollArea.Scrollbar orientation="vertical" className="w-2 z-50">

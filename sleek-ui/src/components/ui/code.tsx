@@ -1,61 +1,163 @@
-import { Check, Copy } from "lucide-react"
-import { useState } from "react"
 import { cn } from "@/lib/utils"
-import { SyntaxHighlighter } from "./syntax-highlighter"
+import { useState } from "react"
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
+import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism'
+import { Eye, Code as CodeIcon, Copy } from "lucide-react"
+import { LiveProvider, LiveError, LivePreview } from 'react-live'
+import * as React from 'react'
 
 interface CodeProps {
-  code: string
-  language?: string
+  children: string
   className?: string
+  language?: string
+  path?: string
+  scope?: Record<string, any>
 }
 
-export function Code({ code, language, className }: CodeProps) {
+export function Code({ children = "", className, language = "typescript", path, scope }: CodeProps) {
+  const [isPreview, setIsPreview] = useState(false)
   const [copied, setCopied] = useState(false)
+  
+  const codeContent = typeof children === 'string' ? children.trim() : String(children).trim()
+  
+  // Determine if the code is previewable (UI code vs terminal commands)
+  const isPreviewable = !['bash', 'shell', 'sh'].includes(language.toLowerCase())
 
-  const onCopy = async () => {
-    await navigator.clipboard.writeText(code)
+  const copyToClipboard = async () => {
+    await navigator.clipboard.writeText(codeContent)
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
   }
 
-  return (
-    <div className={cn("relative group w-full max-w-[calc(100vw-2rem)]", className)}>
-      <div className="absolute right-1.5 sm:right-3 top-1.5 sm:top-2.5 z-20">
-        <button
-          onClick={onCopy}
-          className="hidden group-hover:flex h-5 sm:h-6 w-5 sm:w-6 items-center justify-center rounded-md border bg-background transition-all hover:bg-accent"
-        >
-          {copied ? (
-            <Check className="h-3 w-3 text-green-500" />
-          ) : (
-            <Copy className="h-3 w-3 text-muted-foreground" />
-          )}
-          <span className="sr-only">Copy code</span>
-        </button>
-      </div>
-      <div className="relative">
-        <div className="absolute top-0 right-0 h-6 sm:h-7 w-full code-block border-b rounded-t-lg">
-          {language && (
-            <div className="absolute left-2 sm:left-3 top-1/2 -translate-y-1/2">
-              <span className="text-[10px] text-muted-foreground font-mono">
-                {language}
-              </span>
+  // Improved live code preparation
+  const liveCode = `
+    ${codeContent.includes('import') ? `
+      function Preview() {
+        return (
+          <Marquee className="py-6">
+            <div className="flex items-center gap-8">
+              <div className="text-white px-4 py-2 rounded bg-gray-800">Item 1</div>
+              <div className="text-white px-4 py-2 rounded bg-gray-800">Item 2</div>
+              <div className="text-white px-4 py-2 rounded bg-gray-800">Item 3</div>
             </div>
-          )}
-        </div>
-        <div className={cn(
-          "mt-6 sm:mt-7 rounded-lg code-block w-full max-w-full",
-          language && "pt-6 sm:pt-7"
-        )}>
-          <div className="overflow-x-auto">
-            <SyntaxHighlighter 
-              code={code}
-              language={language || 'text'}
-              className="!m-0 !bg-transparent w-full"
-            />
+          </Marquee>
+        )
+      }
+      
+      render(<Preview />)
+    ` : codeContent.includes('render') ? codeContent : `
+      function Preview() {
+        return (
+          ${codeContent}
+        )
+      }
+      
+      render(<Preview />)
+    `}
+  `.trim()
+
+  return (
+    <LiveProvider 
+      code={liveCode} 
+      scope={{ 
+        ...scope, 
+        React,
+        render: (element: React.ReactElement) => element 
+      }}
+      noInline={true}
+      language={language}
+    >
+      <div className="relative rounded-lg overflow-hidden bg-[#1e1e1e] border border-white/[0.1] shadow-xl my-4 w-full max-w-[calc(100vw-2rem)]">
+        {/* Header */}
+        <div className="flex items-center justify-between px-3 py-1.5 bg-[#2d2d2d] border-b border-white/[0.1]">
+          <div className="flex items-center gap-3">
+            {isPreviewable && (
+              <>
+                <button 
+                  onClick={() => setIsPreview(true)}
+                  className={cn(
+                    "flex items-center gap-1.5 text-xs font-medium",
+                    isPreview ? "text-white" : "text-gray-400 hover:text-white"
+                  )}
+                >
+                  <Eye className="h-3.5 w-3.5" />
+                  Preview
+                </button>
+                <button 
+                  onClick={() => setIsPreview(false)}
+                  className={cn(
+                    "flex items-center gap-1.5 text-xs font-medium",
+                    !isPreview ? "text-white" : "text-gray-400 hover:text-white"
+                  )}
+                >
+                  <CodeIcon className="h-3.5 w-3.5" />
+                  Code
+                </button>
+              </>
+            )}
+          </div>
+
+          <div className="flex items-center gap-2">
+            {path && (
+              <span className="text-xs text-gray-400">{path}</span>
+            )}
+            <button 
+              onClick={copyToClipboard}
+              className={cn(
+                "p-1 rounded transition-colors hover:bg-white/10",
+                copied ? "text-green-400" : "text-gray-400 hover:text-white"
+              )}
+            >
+              <Copy className="h-3.5 w-3.5" />
+            </button>
           </div>
         </div>
+
+        {/* Content */}
+        <div className={cn("relative group", className)}>
+          {isPreview && isPreviewable ? (
+            <div className="p-4 bg-gray-950">
+              <LivePreview />
+              <div className="text-red-500 text-sm mt-2">
+                <LiveError />
+              </div>
+            </div>
+          ) : (
+            <>
+              <div className="overflow-x-auto">
+                <SyntaxHighlighter
+                  language={language}
+                  style={vscDarkPlus}
+                  customStyle={{
+                    margin: 0,
+                    padding: "0.75rem 1rem 0.75rem 2.5rem",
+                    background: "transparent",
+                    fontSize: "13px",
+                    lineHeight: 1.5,
+                  }}
+                  codeTagProps={{
+                    style: {
+                      fontSize: "inherit",
+                      lineHeight: "inherit",
+                    }
+                  }}
+                >
+                  {codeContent}
+                </SyntaxHighlighter>
+              </div>
+
+              {/* Line Numbers */}
+              <div className="absolute left-3 top-3 select-none">
+                {codeContent.split('\n').map((_, i) => (
+                  <div key={i} className="text-gray-600 text-xs leading-[1.5]">
+                    {i + 1}
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
+        </div>
       </div>
-    </div>
+    </LiveProvider>
   )
 } 
