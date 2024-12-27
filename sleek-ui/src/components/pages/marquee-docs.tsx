@@ -7,9 +7,56 @@ export function MarqueeDocs() {
       <div className="mb-12">
         <h1>Marquee</h1>
         <p className="text-xl !mt-4">
-          A smooth infinite scrolling component for showcasing logos, testimonials, or any other content.
+          Create magical scrolling experiences with a component that you can copy and paste into your apps.
         </p>
       </div>
+
+      {/* Main Content */}
+      <section>
+        <h2 id="overview">Overview</h2>
+        <p>
+          The Marquee component is a versatile scrolling element that you can copy and paste into your web apps.
+        </p>
+        <p>
+          It primarily features smooth animations and customizable options, perfect for creating engaging user experiences in landing pages, testimonials, and logo showcases.
+        </p>
+      </section>
+
+      <section>
+        <h2 id="philosophy">Philosophy</h2>
+        <p>
+          <strong>I personally believe that subtle motion and animation can significantly enhance user engagement. It's one of the key methods of creating a polished, premium feel in your application.</strong> Motion helps guide users' attention and creates a more dynamic, interactive experience.
+        </p>
+
+        <h3 id="trust-factors">Design Considerations</h3>
+        <p>
+          When implementing scrolling content, we need to consider:
+        </p>
+
+        <ul>
+          <li>"Is the motion smooth and natural?"</li>
+          <li>"Does it respect user preferences for reduced motion?"</li>
+          <li>"Is it accessible to all users?"</li>
+        </ul>
+
+        <h3 id="impact">Impact of Motion</h3>
+        <p>
+          <strong>Poor implementation of motion can be jarring and distracting.</strong> It can create a sense of motion sickness and make your application feel unprofessional.
+        </p>
+
+        <p>
+          <strong>Well-implemented motion enhances the user experience without drawing attention to itself.</strong> It should feel natural and purposeful, adding value to the interface without overwhelming it.
+        </p>
+      </section>
+
+      {/* Installation */}
+      <section>
+        <h2 id="installation">Installation</h2>
+        <p>
+          You must install <code className="text-sm font-mono bg-muted px-1.5 py-0.5 rounded-md">framer-motion</code>. As most of our components use <code className="text-sm font-mono bg-muted px-1.5 py-0.5 rounded-md">framer-motion</code> install it too.
+        </p>
+        <pre><code className="language-bash">npm install framer-motion</code></pre>
+      </section>
 
       {/* Main Content */}
       <section>
@@ -18,12 +65,6 @@ export function MarqueeDocs() {
           The Marquee component is perfect for creating engaging, auto-scrolling content sections. 
           It's commonly used for logo clouds, testimonial carousels, or any repeating content that benefits from continuous motion.
         </p>
-
-        <h3 id="installation">Installation</h3>
-        <p>
-          Install the required dependencies for the Marquee component:
-        </p>
-        <pre><code className="language-bash">npm install framer-motion</code></pre>
 
         <h3 id="basic-example">Basic Example</h3>
         <p>

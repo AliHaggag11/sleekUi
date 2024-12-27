@@ -9,6 +9,7 @@ import { Banner } from "./components/ui/banner"
 import { Nav } from "./components/ui/nav"
 import { DocsSidebarProvider } from "./components/providers/docs-sidebar-provider"
 import './styles/prism-theme.css'
+import { Installation } from "./components/pages/installation"
 
 export default function App() {
   return (
@@ -25,6 +26,7 @@ export default function App() {
                   <Route path="/docs" element={<DocsLayout />}>
                     <Route index element={<Introduction />} />
                     <Route path="introduction" element={<Introduction />} />
+                    <Route path="installation" element={<Installation />} />
                     <Route path="marquee" element={<MarqueeDocs />} />
                     {/* Add more documentation routes here */}
                   </Route>

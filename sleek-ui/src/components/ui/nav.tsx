@@ -172,7 +172,7 @@ export function Nav({ isSidebarOpen }: NavProps) {
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center ml-8 space-x-8">
               <NavLink to="/docs">Documentation</NavLink>
-              <NavLink to="/components">Components</NavLink>
+              <NavLink to="/docs/marquee">Components</NavLink>
               <NavLink to="/templates">
                 Templates
                 <span className="ml-2 inline-flex items-center rounded-full bg-gradient-to-r from-pink-500/20 via-purple-500/20 to-indigo-500/20 px-2 py-0.5 text-xs font-semibold text-primary shadow-sm">
@@ -293,7 +293,7 @@ export function Nav({ isSidebarOpen }: NavProps) {
             >
               <nav className="flex flex-col p-4 space-y-3">
                 <MobileNavLink to="/docs">Documentation</MobileNavLink>
-                <MobileNavLink to="/components">Components</MobileNavLink>
+                <MobileNavLink to="/docs/marquee">Components</MobileNavLink>
                 <MobileNavLink to="/templates">
                   <div className="flex items-center justify-between">
                     Templates
