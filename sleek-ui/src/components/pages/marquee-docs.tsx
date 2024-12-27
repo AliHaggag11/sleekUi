@@ -174,51 +174,49 @@ render(<Demo />)`}</Code>
         <h3 id="customization">Customization</h3>
         <p>The component accepts the following props:</p>
         
-        <div className="-mx-6 my-4 overflow-x-auto overscroll-x-contain px-6">
-          <div className="min-w-full md:w-[40rem]">
-            <table className="w-full border-collapse text-sm">
-              <thead>
-                <tr className="border-b">
-                  <th className="py-2 px-2 sm:px-4 text-left">Prop</th>
-                  <th className="py-2 px-2 sm:px-4 text-left">Type</th>
-                  <th className="py-2 px-2 sm:px-4 text-left">Default</th>
-                  <th className="py-2 px-2 sm:px-4 text-left">Description</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr className="border-b">
-                  <td className="py-2 px-2 sm:px-4 font-mono text-xs sm:text-sm">children</td>
-                  <td className="py-2 px-2 sm:px-4 font-mono text-xs sm:text-sm">React.ReactNode</td>
-                  <td className="py-2 px-2 sm:px-4">Required</td>
-                  <td className="py-2 px-2 sm:px-4">The content to be displayed in the marquee</td>
-                </tr>
-                <tr className="border-b">
-                  <td className="py-2 px-2 sm:px-4 font-mono text-xs sm:text-sm">speed</td>
-                  <td className="py-2 px-2 sm:px-4 font-mono text-xs sm:text-sm">number</td>
-                  <td className="py-2 px-2 sm:px-4">20</td>
-                  <td className="py-2 px-2 sm:px-4">Controls the scrolling speed (lower = slower)</td>
-                </tr>
-                <tr className="border-b">
-                  <td className="py-2 px-2 sm:px-4 font-mono text-xs sm:text-sm">direction</td>
-                  <td className="py-2 px-2 sm:px-4 font-mono text-xs sm:text-sm">"left" | "right"</td>
-                  <td className="py-2 px-2 sm:px-4">"left"</td>
-                  <td className="py-2 px-2 sm:px-4">The direction of the marquee scroll</td>
-                </tr>
-                <tr className="border-b">
-                  <td className="py-2 px-2 sm:px-4 font-mono text-xs sm:text-sm">pauseOnHover</td>
-                  <td className="py-2 px-2 sm:px-4 font-mono text-xs sm:text-sm">boolean</td>
-                  <td className="py-2 px-2 sm:px-4">false</td>
-                  <td className="py-2 px-2 sm:px-4">Whether to pause the animation on hover</td>
-                </tr>
-                <tr className="border-b">
-                  <td className="py-2 px-2 sm:px-4 font-mono text-xs sm:text-sm">className</td>
-                  <td className="py-2 px-2 sm:px-4 font-mono text-xs sm:text-sm">string</td>
-                  <td className="py-2 px-2 sm:px-4">undefined</td>
-                  <td className="py-2 px-2 sm:px-4">Additional CSS classes to apply</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+        <div className="w-full overflow-x-auto">
+          <table className="min-w-full border-collapse">
+            <thead>
+              <tr className="border-b">
+                <th className="py-2 px-4 text-left">Property</th>
+                <th className="py-2 px-4 text-left">Type</th>
+                <th className="py-2 px-4 text-left">Default</th>
+                <th className="py-2 px-4 text-left">Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr className="border-b">
+                <td className="py-2 px-4 font-mono text-xs sm:text-sm">children</td>
+                <td className="py-2 px-4 font-mono text-xs sm:text-sm">React.ReactNode</td>
+                <td className="py-2 px-4">Required</td>
+                <td className="py-2 px-4">The content to be displayed in the marquee</td>
+              </tr>
+              <tr className="border-b">
+                <td className="py-2 px-4 font-mono text-xs sm:text-sm">speed</td>
+                <td className="py-2 px-4 font-mono text-xs sm:text-sm">number</td>
+                <td className="py-2 px-4">20</td>
+                <td className="py-2 px-4">Controls the scrolling speed (lower = slower)</td>
+              </tr>
+              <tr className="border-b">
+                <td className="py-2 px-4 font-mono text-xs sm:text-sm">direction</td>
+                <td className="py-2 px-4 font-mono text-xs sm:text-sm">"left" | "right"</td>
+                <td className="py-2 px-4">"left"</td>
+                <td className="py-2 px-4">The direction of the marquee scroll</td>
+              </tr>
+              <tr className="border-b">
+                <td className="py-2 px-4 font-mono text-xs sm:text-sm">pauseOnHover</td>
+                <td className="py-2 px-4 font-mono text-xs sm:text-sm">boolean</td>
+                <td className="py-2 px-4">false</td>
+                <td className="py-2 px-4">Whether to pause the animation on hover</td>
+              </tr>
+              <tr className="border-b">
+                <td className="py-2 px-4 font-mono text-xs sm:text-sm">className</td>
+                <td className="py-2 px-4 font-mono text-xs sm:text-sm">string</td>
+                <td className="py-2 px-4">undefined</td>
+                <td className="py-2 px-4">Additional CSS classes to apply</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </section>
 
