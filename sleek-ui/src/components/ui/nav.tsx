@@ -7,14 +7,19 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Link, useLocation } from "react-router-dom"
 import { Logo } from "./logo"
 import { useDocsSidebar } from "../providers/docs-sidebar-provider"
+import { cn } from "@/lib/utils"
 
-export const Nav = memo(function Nav() {
+interface NavProps {
+  isSidebarOpen?: boolean
+}
+
+export function Nav({ isSidebarOpen }: NavProps) {
   const { theme, setTheme } = useTheme()
   const [open, setOpen] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const modifierKey = useModifierKey()
   const location = useLocation()
-  const { isSidebarOpen, setIsSidebarOpen } = useDocsSidebar()
+  const { isSidebarOpen: docsSidebarOpen, setIsSidebarOpen } = useDocsSidebar()
   const isDocsPage = location.pathname.startsWith('/docs')
 
   const resetMenus = () => {
@@ -67,7 +72,10 @@ export const Nav = memo(function Nav() {
         variants={navVariants}
         initial="hidden"
         animate="visible"
-        className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
+        className={cn(
+          "sticky top-0 z-30 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60",
+          isSidebarOpen && "brightness-[0.8] pointer-events-none"
+        )}
       >
         <CommandMenu open={open} onOpenChange={setOpen} />
         <div className="container flex h-16 items-center justify-between px-4">
@@ -254,7 +262,7 @@ export const Nav = memo(function Nav() {
       </motion.header>
     </>
   )
-})
+}
 
 // Desktop Nav Link
 function NavLink({ to, children }: { to: string; children: React.ReactNode }) {

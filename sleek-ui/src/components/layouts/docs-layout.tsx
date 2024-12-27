@@ -87,15 +87,33 @@ export function DocsLayout() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-40 bg-background/80 backdrop-blur-sm lg:hidden"
+            className="fixed inset-0 z-40 bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/60 lg:hidden"
             onClick={() => setIsSidebarOpen(false)}
           />
         )}
       </AnimatePresence>
 
       {/* Left Sidebar */}
-      <div className="hidden lg:block w-64 border-r border-gray-200 dark:border-gray-800">
-        <ScrollArea.Root className="h-full">
+      <div className="hidden lg:block w-64 border-r border-gray-200 dark:border-gray-800 relative overflow-hidden">
+        {/* Background Effects */}
+        <div className="absolute inset-0 pointer-events-none">
+          {/* Grid */}
+          <div className="absolute inset-0 bg-grid-white/[0.03] dark:bg-grid-white/[0.05] bg-[size:40px_40px] [mask-image:radial-gradient(white,transparent_90%)]" />
+          
+          {/* Gradient Blobs */}
+          <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-purple-500/30 dark:bg-purple-500/40 rounded-full blur-3xl animate-blob" />
+          <div className="absolute bottom-1/3 left-1/2 -translate-x-1/2 translate-y-1/2 w-[250px] h-[250px] bg-pink-500/20 dark:bg-pink-500/30 rounded-full blur-3xl animate-blob animation-delay-4000" />
+
+          {/* Noise Texture */}
+          <div className="absolute inset-0 opacity-30 dark:opacity-40">
+            <div className="absolute inset-0 bg-repeat bg-noise mix-blend-overlay" />
+          </div>
+
+          {/* Backdrop Blur Layer */}
+          <div className="absolute inset-0 backdrop-blur-md bg-background/70 dark:bg-background/60" />
+        </div>
+
+        <ScrollArea.Root className="h-full relative">
           <ScrollArea.Viewport className="h-full">
             <div className="p-6">
               <nav className="space-y-6">
@@ -114,7 +132,14 @@ export function DocsLayout() {
                         >
                           {link.label}
                           {link.badge && (
-                            <span className="inline-flex items-center rounded-full bg-gradient-to-r from-pink-500/20 via-purple-500/20 to-indigo-500/20 px-2 py-0.5 text-xs font-semibold text-primary shadow-sm">
+                            <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-semibold shadow-sm ${
+                              link.badge === "Pro"
+                                ? "bg-gradient-to-r from-indigo-600/20 via-purple-500/20 to-pink-600/20 dark:from-indigo-400/20 dark:via-purple-400/20 dark:to-pink-400/20 text-primary border border-indigo-500/20 dark:border-indigo-400/20 shadow-indigo-500/20 dark:shadow-indigo-400/10"
+                                : "bg-gradient-to-r from-pink-500/20 via-purple-500/20 to-indigo-500/20 text-primary"
+                            }`}>
+                              {link.badge === "Pro" && (
+                                <span className="mr-1 text-[10px]">✨</span>
+                              )}
                               {link.badge}
                             </span>
                           )}
@@ -147,11 +172,14 @@ export function DocsLayout() {
                           >
                             {link.label}
                             {link.badge && (
-                              <span className={`rounded px-1.5 py-0.5 text-xs font-medium ${
-                                link.badge === "Pro" 
-                                  ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white"
-                                  : "bg-amber-100 text-amber-800 dark:bg-amber-800/20 dark:text-amber-500"
+                              <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-semibold shadow-sm ${
+                                link.badge === "Pro"
+                                  ? "bg-gradient-to-r from-indigo-600/20 via-purple-500/20 to-pink-600/20 dark:from-indigo-400/20 dark:via-purple-400/20 dark:to-pink-400/20 text-primary border border-indigo-500/20 dark:border-indigo-400/20 shadow-indigo-500/20 dark:shadow-indigo-400/10"
+                                  : "bg-gradient-to-r from-pink-500/20 via-purple-500/20 to-indigo-500/20 text-primary"
                               }`}>
+                                {link.badge === "Pro" && (
+                                  <span className="mr-1 text-[10px]">✨</span>
+                                )}
                                 {link.badge}
                               </span>
                             )}
@@ -164,7 +192,7 @@ export function DocsLayout() {
               </nav>
             </div>
           </ScrollArea.Viewport>
-          <ScrollArea.Scrollbar orientation="vertical" className="w-2">
+          <ScrollArea.Scrollbar orientation="vertical" className="w-2 z-50">
             <ScrollArea.Thumb className="bg-gray-200 dark:bg-gray-800 rounded-full w-1.5" />
           </ScrollArea.Scrollbar>
         </ScrollArea.Root>
@@ -176,12 +204,26 @@ export function DocsLayout() {
         animate={{ 
           x: isSidebarOpen ? 0 : -320,
         }}
-        className="fixed top-0 left-0 z-50 w-64 h-screen lg:hidden
-          bg-background border-r border-gray-200 dark:border-gray-800"
+        className="fixed top-0 left-0 z-50 w-64 h-[100dvh] lg:hidden overflow-hidden"
       >
-        <div className="flex h-full flex-col pt-16">
+        {/* Background Effects */}
+        <div className="absolute inset-0 pointer-events-none">
+          {/* Grid */}
+          <div className="absolute inset-0 bg-grid-white/[0.03] dark:bg-grid-white/[0.05] bg-[size:40px_40px] [mask-image:radial-gradient(white,transparent_90%)]" />
+          
+          {/* Gradient Blobs */}
+          <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-purple-500/30 dark:bg-purple-500/40 rounded-full blur-3xl animate-blob" />
+          <div className="absolute bottom-1/3 left-1/2 -translate-x-1/2 translate-y-1/2 w-[250px] h-[250px] bg-pink-500/20 dark:bg-pink-500/30 rounded-full blur-3xl animate-blob animation-delay-4000" />
+
+          {/* Noise Texture */}
+          <div className="absolute inset-0 opacity-30 dark:opacity-40">
+            <div className="absolute inset-0 bg-repeat bg-noise mix-blend-overlay" />
+          </div>
+        </div>
+
+        <div className="flex h-full flex-col relative backdrop-blur-md bg-background/70 dark:bg-background/60 border-r border-gray-200 dark:border-gray-800">
           {/* Close button for mobile */}
-          <div className="flex items-center justify-between p-4 border-b border-border">
+          <div className="flex items-center justify-between p-4 border-b border-border sticky top-0 bg-background/80 backdrop-blur-sm z-10">
             <h2 className="font-semibold">Navigation</h2>
             <Button
               variant="ghost"
@@ -194,7 +236,7 @@ export function DocsLayout() {
           </div>
 
           {/* Sidebar Content */}
-          <ScrollArea.Root className="flex-1">
+          <ScrollArea.Root className="flex-1 h-[calc(100dvh-4rem)]">
             <ScrollArea.Viewport className="h-full">
               <div className="p-6">
                 <nav className="space-y-6">
@@ -214,7 +256,14 @@ export function DocsLayout() {
                           >
                             {link.label}
                             {link.badge && (
-                              <span className="inline-flex items-center rounded-full bg-gradient-to-r from-pink-500/20 via-purple-500/20 to-indigo-500/20 px-2 py-0.5 text-xs font-semibold text-primary shadow-sm">
+                              <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-semibold shadow-sm ${
+                                link.badge === "Pro"
+                                  ? "bg-gradient-to-r from-indigo-600/20 via-purple-500/20 to-pink-600/20 dark:from-indigo-400/20 dark:via-purple-400/20 dark:to-pink-400/20 text-primary border border-indigo-500/20 dark:border-indigo-400/20 shadow-indigo-500/20 dark:shadow-indigo-400/10"
+                                  : "bg-gradient-to-r from-pink-500/20 via-purple-500/20 to-indigo-500/20 text-primary"
+                              }`}>
+                                {link.badge === "Pro" && (
+                                  <span className="mr-1 text-[10px]">✨</span>
+                                )}
                                 {link.badge}
                               </span>
                             )}
@@ -247,11 +296,14 @@ export function DocsLayout() {
                             >
                               {link.label}
                               {link.badge && (
-                                <span className={`rounded px-1.5 py-0.5 text-xs font-medium ${
-                                  link.badge === "Pro" 
-                                    ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white"
-                                    : "bg-amber-100 text-amber-800 dark:bg-amber-800/20 dark:text-amber-500"
+                                <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-semibold shadow-sm ${
+                                  link.badge === "Pro"
+                                    ? "bg-gradient-to-r from-indigo-600/20 via-purple-500/20 to-pink-600/20 dark:from-indigo-400/20 dark:via-purple-400/20 dark:to-pink-400/20 text-primary border border-indigo-500/20 dark:border-indigo-400/20 shadow-indigo-500/20 dark:shadow-indigo-400/10"
+                                    : "bg-gradient-to-r from-pink-500/20 via-purple-500/20 to-indigo-500/20 text-primary"
                                 }`}>
+                                  {link.badge === "Pro" && (
+                                    <span className="mr-1 text-[10px]">✨</span>
+                                  )}
                                   {link.badge}
                                 </span>
                               )}
@@ -290,8 +342,26 @@ export function DocsLayout() {
       </ScrollArea.Root>
 
       {/* Right Sidebar - Table of Contents */}
-      <ScrollArea.Root className="hidden lg:block w-64 border-l border-gray-200 dark:border-gray-800 shrink-0">
-        <ScrollArea.Viewport className="h-full">
+      <ScrollArea.Root className="hidden lg:block w-64 border-l border-gray-200 dark:border-gray-800 shrink-0 relative overflow-hidden">
+        {/* Background Effects */}
+        <div className="absolute inset-0 pointer-events-none">
+          {/* Grid */}
+          <div className="absolute inset-0 bg-grid-white/[0.03] dark:bg-grid-white/[0.05] bg-[size:40px_40px] [mask-image:radial-gradient(white,transparent_90%)]" />
+          
+          {/* Gradient Blobs */}
+          <div className="absolute top-1/3 right-1/2 translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-indigo-500/30 dark:bg-indigo-500/40 rounded-full blur-3xl animate-blob animation-delay-2000" />
+          <div className="absolute bottom-1/3 right-1/2 translate-x-1/2 translate-y-1/2 w-[250px] h-[250px] bg-cyan-500/20 dark:bg-cyan-500/30 rounded-full blur-3xl animate-blob" />
+
+          {/* Noise Texture */}
+          <div className="absolute inset-0 opacity-30 dark:opacity-40">
+            <div className="absolute inset-0 bg-repeat bg-noise mix-blend-overlay" />
+          </div>
+
+          {/* Backdrop Blur Layer */}
+          <div className="absolute inset-0 backdrop-blur-md bg-background/70 dark:bg-background/60" />
+        </div>
+
+        <ScrollArea.Viewport className="h-full relative">
           <div className="p-6">
             <h4 className="mb-3 text-sm font-medium text-gray-500 dark:text-gray-400">
               On This Page
@@ -299,7 +369,7 @@ export function DocsLayout() {
             <TableOfContents />
           </div>
         </ScrollArea.Viewport>
-        <ScrollArea.Scrollbar orientation="vertical" className="w-2">
+        <ScrollArea.Scrollbar orientation="vertical" className="w-2 z-50">
           <ScrollArea.Thumb className="bg-gray-200 dark:bg-gray-800 rounded-full w-1.5" />
         </ScrollArea.Scrollbar>
       </ScrollArea.Root>

@@ -15,22 +15,24 @@ export default function App() {
     <BrowserRouter>
       <ThemeProvider>
         <DocsSidebarProvider>
-          <div className="flex min-h-screen flex-col">
-            <Banner />
-            <Nav />
-            <main className="flex-1">
-              <Routes>
-                <Route path="/" element={<Landing />} />
-                <Route path="/docs" element={<DocsLayout />}>
-                  <Route index element={<Introduction />} />
-                  <Route path="introduction" element={<Introduction />} />
-                  <Route path="marquee" element={<MarqueeDocs />} />
-                  {/* Add more documentation routes here */}
-                </Route>
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </main>
-          </div>
+          {({ isSidebarOpen }) => (
+            <div className="flex min-h-screen flex-col">
+              <Banner />
+              <Nav isSidebarOpen={isSidebarOpen} />
+              <main className="flex-1">
+                <Routes>
+                  <Route path="/" element={<Landing />} />
+                  <Route path="/docs" element={<DocsLayout />}>
+                    <Route index element={<Introduction />} />
+                    <Route path="introduction" element={<Introduction />} />
+                    <Route path="marquee" element={<MarqueeDocs />} />
+                    {/* Add more documentation routes here */}
+                  </Route>
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </main>
+            </div>
+          )}
         </DocsSidebarProvider>
       </ThemeProvider>
     </BrowserRouter>

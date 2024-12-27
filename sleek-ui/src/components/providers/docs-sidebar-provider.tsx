@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react"
+import { createContext, useContext, useState, useMemo } from "react"
 
 interface DocsSidebarContextType {
   isSidebarOpen: boolean
@@ -7,12 +7,21 @@ interface DocsSidebarContextType {
 
 const DocsSidebarContext = createContext<DocsSidebarContextType | undefined>(undefined)
 
-export function DocsSidebarProvider({ children }: { children: React.ReactNode }) {
+interface DocsSidebarProviderProps {
+  children: React.ReactNode | ((context: { isSidebarOpen: boolean }) => React.ReactNode)
+}
+
+export function DocsSidebarProvider({ children }: DocsSidebarProviderProps) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
 
+  const value = useMemo(() => ({
+    isSidebarOpen,
+    setIsSidebarOpen,
+  }), [isSidebarOpen])
+
   return (
-    <DocsSidebarContext.Provider value={{ isSidebarOpen, setIsSidebarOpen }}>
-      {children}
+    <DocsSidebarContext.Provider value={value}>
+      {typeof children === 'function' ? children({ isSidebarOpen }) : children}
     </DocsSidebarContext.Provider>
   )
 }
