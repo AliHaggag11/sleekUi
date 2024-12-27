@@ -1,7 +1,6 @@
 import { DocContent } from "../ui/doc-content"
 import { Code } from "../ui/code"
 import { Marquee } from "../ui/marquee"
-import { cn } from "@/lib/utils"
 
 export function MarqueeDocs() {
   return (
