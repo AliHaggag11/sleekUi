@@ -2,10 +2,12 @@ import { Button } from "./button"
 import { Github, Moon, Sun, Search, Menu, X } from "lucide-react"
 import { useTheme } from "@/components/theme-provider"
 import { CommandMenu, useModifierKey } from "./command-menu"
-import { useState } from "react"
+import { useState, memo } from "react"
 import { motion, AnimatePresence } from "framer-motion"
+import { Link, useLocation } from "react-router-dom"
+import { Logo } from "./logo"
 
-export function Nav() {
+export const Nav = memo(function Nav() {
   const { theme, setTheme } = useTheme()
   const [open, setOpen] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -54,36 +56,19 @@ export function Nav() {
         <div className="container flex h-16 items-center justify-between px-4">
           {/* Left Section: Logo + Desktop Nav */}
           <div className="flex items-center">
-            {/* Logo */}
-            <motion.div 
-              className="flex items-center pl-2"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              <a href="/" className="flex items-center gap-2">
-                <div className="h-7 w-7 rounded-lg bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center">
-                  <div className="h-3 w-3 rounded-sm bg-primary-foreground" />
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="font-bold text-xl tracking-tight">SleekUI</span>
-                  <span className="hidden sm:inline-flex items-center rounded-full bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 px-3 py-0.5 text-xs font-semibold text-white shadow-sm">
-                    Beta
-                  </span>
-                </div>
-              </a>
-            </motion.div>
+            <Logo className="flex items-center pl-2" />
 
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center ml-8 space-x-8">
-              <NavLink href="/docs">Documentation</NavLink>
-              <NavLink href="/components">Components</NavLink>
-              <NavLink href="/templates">
+              <NavLink to="/docs">Documentation</NavLink>
+              <NavLink to="/components">Components</NavLink>
+              <NavLink to="/templates">
                 Templates
                 <span className="ml-2 inline-flex items-center rounded-full bg-gradient-to-r from-pink-500/20 via-purple-500/20 to-indigo-500/20 px-2 py-0.5 text-xs font-semibold text-primary shadow-sm">
                   New
                 </span>
               </NavLink>
-              <NavLink href="/showcase">Showcase</NavLink>
+              <NavLink to="/showcase">Showcase</NavLink>
             </nav>
           </div>
 
@@ -215,9 +200,9 @@ export function Nav() {
               className="lg:hidden border-t bg-background overflow-hidden"
             >
               <nav className="flex flex-col p-4 space-y-3">
-                <MobileNavLink href="/docs">Documentation</MobileNavLink>
-                <MobileNavLink href="/components">Components</MobileNavLink>
-                <MobileNavLink href="/templates">
+                <MobileNavLink to="/docs">Documentation</MobileNavLink>
+                <MobileNavLink to="/components">Components</MobileNavLink>
+                <MobileNavLink to="/templates">
                   <div className="flex items-center justify-between">
                     Templates
                     <span className="inline-flex items-center rounded-full bg-gradient-to-r from-pink-500/20 via-purple-500/20 to-indigo-500/20 px-2 py-0.5 text-xs font-semibold text-primary shadow-sm">
@@ -225,7 +210,7 @@ export function Nav() {
                     </span>
                   </div>
                 </MobileNavLink>
-                <MobileNavLink href="/showcase">Showcase</MobileNavLink>
+                <MobileNavLink to="/showcase">Showcase</MobileNavLink>
                 <div className="pt-2 border-t">
                   <a
                     href="https://github.com/yourusername/sleekui"
@@ -249,32 +234,37 @@ export function Nav() {
       </motion.header>
     </>
   )
-}
+})
 
 // Desktop Nav Link
-function NavLink({ href, children }: { href: string; children: React.ReactNode }) {
+function NavLink({ to, children }: { to: string; children: React.ReactNode }) {
+  const location = useLocation()
+  const isActive = location.pathname.startsWith(to)
+
   return (
-    <motion.a
-      href={href}
-      className="inline-flex items-center text-sm font-medium transition-colors hover:text-primary text-muted-foreground"
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
-    >
-      {children}
-    </motion.a>
+    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+      <Link
+        to={to}
+        className={`inline-flex items-center text-sm font-medium transition-colors ${
+          isActive ? "text-primary" : "text-muted-foreground hover:text-primary"
+        }`}
+      >
+        {children}
+      </Link>
+    </motion.div>
   )
 }
 
 // Mobile Nav Link
-function MobileNavLink({ href, children }: { href: string; children: React.ReactNode }) {
+function MobileNavLink({ to, children }: { to: string; children: React.ReactNode }) {
   return (
-    <motion.a
-      href={href}
-      className="flex items-center p-2 text-sm font-medium rounded-md hover:bg-accent"
-      whileHover={{ x: 4 }}
-      whileTap={{ scale: 0.98 }}
-    >
-      {children}
-    </motion.a>
+    <motion.div whileHover={{ x: 4 }} whileTap={{ scale: 0.98 }}>
+      <Link
+        to={to}
+        className="flex items-center p-2 text-sm font-medium rounded-md hover:bg-accent"
+      >
+        {children}
+      </Link>
+    </motion.div>
   )
 } 

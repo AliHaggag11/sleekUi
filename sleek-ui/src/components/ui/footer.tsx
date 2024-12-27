@@ -2,6 +2,7 @@ import { motion, useInView } from "framer-motion"
 import { Github, Twitter, MessageCircle, ArrowUpRight, Check, Loader2 } from "lucide-react"
 import { Button } from "./button"
 import { useRef, useState } from "react"
+import { Logo } from "./logo"
 
 export function Footer() {
   const footerRef = useRef(null)
@@ -214,9 +215,7 @@ export function Footer() {
           >
             {/* Brand Section */}
             <motion.div variants={itemVariants} className="space-y-4">
-              <h2 className="text-2xl font-medium bg-gradient-to-br from-foreground to-foreground/70 bg-clip-text text-transparent tracking-tight">
-                Sleek UI
-              </h2>
+              <Logo showBetaBadge={false} />
               <p className="text-muted-foreground font-light">
                 Beautiful, modern components built with Radix UI and Tailwind CSS.
               </p>
