@@ -2,7 +2,7 @@ import { Button } from "./button"
 import { Github, Moon, Sun, Search, Menu, X } from "lucide-react"
 import { useTheme } from "@/components/theme-provider"
 import { CommandMenu, useModifierKey } from "./command-menu"
-import { useState, memo } from "react"
+import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Link, useLocation } from "react-router-dom"
 import { Logo } from "./logo"
@@ -13,14 +13,47 @@ interface NavProps {
   isSidebarOpen?: boolean
 }
 
+// Add this type for the GitHub API response
+type GitHubRepoData = {
+  stargazers_count: number
+}
+
+// Format number with k/m suffix
+function formatStarCount(count: number): string {
+  if (count >= 1000000) {
+    return `${(count / 1000000).toFixed(1)}m`
+  }
+  if (count >= 1000) {
+    return `${(count / 1000).toFixed(1)}k`
+  }
+  return count.toString()
+}
+
 export function Nav({ isSidebarOpen }: NavProps) {
   const { theme, setTheme } = useTheme()
   const [open, setOpen] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const modifierKey = useModifierKey()
   const location = useLocation()
-  const { isSidebarOpen: docsSidebarOpen, setIsSidebarOpen } = useDocsSidebar()
+  const { setIsSidebarOpen } = useDocsSidebar()
   const isDocsPage = location.pathname.startsWith('/docs')
+  const [starCount, setStarCount] = useState<number | null>(null)
+
+  useEffect(() => {
+    // Replace with your actual GitHub username and repo name
+    const owner = "alihaggag11"
+    const repo = "sleekUi"
+
+    fetch(`https://api.github.com/repos/${owner}/${repo}`)
+      .then(response => response.json())
+      .then((data: GitHubRepoData) => {
+        setStarCount(data.stargazers_count)
+      })
+      .catch(error => {
+        console.error('Error fetching GitHub stars:', error)
+        setStarCount(null)
+      })
+  }, [])
 
   const resetMenus = () => {
     setMobileMenuOpen(false)
@@ -52,6 +85,56 @@ export function Nav({ isSidebarOpen }: NavProps) {
       setMobileMenuOpen(!mobileMenuOpen)
     }
   }
+
+  // Update the GitHub button JSX in both desktop and mobile versions:
+  const githubButton = (
+    <a
+      href="https://github.com/alihaggag11/sleekui"
+      target="_blank"
+      rel="noreferrer"
+    >
+      <Button 
+        variant="outline" 
+        className="group relative overflow-hidden h-9 pl-3 pr-4"
+      >
+        <div className="flex items-center gap-2 relative z-10">
+          <Github className="h-4 w-4 transition-transform duration-200 group-hover:scale-110" />
+          <span className="font-medium">Star</span>
+          <div className="h-4 w-[1px] bg-border/50" />
+          <div className="flex items-center text-xs font-medium bg-primary/10 px-2 rounded-full">
+            {starCount === null ? (
+              <span className="animate-pulse">...</span>
+            ) : (
+              formatStarCount(starCount)
+            )}
+          </div>
+        </div>
+        <div className="absolute inset-0 transition-opacity duration-200 opacity-0 group-hover:opacity-100 bg-gradient-to-r from-pink-500/10 via-purple-500/10 to-indigo-500/10" />
+      </Button>
+    </a>
+  )
+
+  // Update the mobile version as well:
+  const mobileGithubButton = (
+    <a
+      href="https://github.com/alihaggag11/sleekui"
+      target="_blank"
+      rel="noreferrer"
+      className="flex items-center justify-between p-2 rounded-md hover:bg-accent"
+    >
+      <span className="text-sm font-medium">Star on GitHub</span>
+      <div className="flex items-center gap-2">
+        <Github className="h-4 w-4" />
+        <span className="text-xs font-medium bg-primary/10 px-2 py-0.5 rounded-full">
+          {starCount === null ? (
+            <span className="animate-pulse">...</span>
+          ) : (
+            formatStarCount(starCount)
+          )}
+        </span>
+      </div>
+    </a>
+  )
 
   return (
     <>
@@ -154,26 +237,7 @@ export function Nav({ isSidebarOpen }: NavProps) {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
-              <a
-                href="https://github.com/yourusername/sleekui"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <Button 
-                  variant="outline" 
-                  className="group relative overflow-hidden h-9 pl-3 pr-4"
-                >
-                  <div className="flex items-center gap-2 relative z-10">
-                    <Github className="h-4 w-4 transition-transform duration-200 group-hover:scale-110" />
-                    <span className="font-medium">Star</span>
-                    <div className="h-4 w-[1px] bg-border/50" />
-                    <div className="flex items-center text-xs font-medium bg-primary/10 px-2 rounded-full">
-                      12.6k
-                    </div>
-                  </div>
-                  <div className="absolute inset-0 transition-opacity duration-200 opacity-0 group-hover:opacity-100 bg-gradient-to-r from-pink-500/10 via-purple-500/10 to-indigo-500/10" />
-                </Button>
-              </a>
+              {githubButton}
             </motion.div>
 
             {/* Mobile Menu Button */}
@@ -240,20 +304,7 @@ export function Nav({ isSidebarOpen }: NavProps) {
                 </MobileNavLink>
                 <MobileNavLink to="/showcase">Showcase</MobileNavLink>
                 <div className="pt-2 border-t">
-                  <a
-                    href="https://github.com/yourusername/sleekui"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="flex items-center justify-between p-2 rounded-md hover:bg-accent"
-                  >
-                    <span className="text-sm font-medium">Star on GitHub</span>
-                    <div className="flex items-center gap-2">
-                      <Github className="h-4 w-4" />
-                      <span className="text-xs font-medium bg-primary/10 px-2 py-0.5 rounded-full">
-                        12.6k
-                      </span>
-                    </div>
-                  </a>
+                  {mobileGithubButton}
                 </div>
               </nav>
             </motion.div>
